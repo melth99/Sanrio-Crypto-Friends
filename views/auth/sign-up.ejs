@@ -10,6 +10,23 @@
 <body>
     <h1>SIGN UP</h1>
     <h2>form goes here</h2>
+    <form action='/auth/sign-up' method="POST">
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" id="firstName">
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" id="lastName">
+            <label for="userName">Username:</label>
+            <input type="text" name="userName" id="userName" />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" />
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" />
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email">
+            <button type="submit">Sign up</button>
+        </div>
+    </form>
 </body>
 
 </html>
