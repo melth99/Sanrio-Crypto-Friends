@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const coinsSchema = new mongoose.Schema({
+const coinSchema = new mongoose.Schema({
     coinName: {
         type: String,
         required: true
@@ -17,9 +17,52 @@ const coinsSchema = new mongoose.Schema({
         type: String, //string for now explore Date() on mdn
         required: true
     },
-    howManyCoins: {
+    quantity: {
         type: Number,
         required: true
     }
 })
-const Coins = new mongoose.Model('Coins',' coinsSchema')
+const portfolioSchema = new mongoose.Schema({
+    portName: {
+        type: String,
+        required: true
+    },
+    currency: {
+        type: String,
+        required: true
+    },
+    coins: [coinSchema] //one to many
+
+})
+const userSchema = new mongoose.Schema({
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    userName: {
+        type: String,
+        required: true,
+        minLength: 5,
+        maxLength: 10,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    portfolio: [portfolioSchema]
+})
+const User = new mongoose.model('User', 'userSchema')
+const Portfolio = new mongoose.model('Portfolio', 'portfolioSchema')
+const Coin = new mongoose.model('Coin', 'coinSchema')
+
+module.exports(User, Portfolio, Coin)

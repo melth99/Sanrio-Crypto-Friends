@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+/*const mongoose = require("mongoose")
 
 const portfolioSchema = new mongoose.Schema({
     portName:{
@@ -16,3 +16,4 @@ const portfolioSchema = new mongoose.Schema({
 })
 
 const Portfolio = mongoose.Model('Portfolio', 'portfolioSchema')
+*/
