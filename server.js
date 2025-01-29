@@ -6,6 +6,7 @@ dotenv.config()
 const mongoose = require("mongoose")
 const methodOverride = require("method-override")
 const morgan = require("morgan")
+const session = require('express-session')
 
 const port = process.env.PORT ? process.env.PORT : "3000";
 mongoose.connect(process.env.MONGODB_URI) //imports mongoose library into node.js app
@@ -23,13 +24,13 @@ app.use(methodOverride("_method"));
 // Morgan for logging HTTP requests
 app.use(morgan('dev'));
 // session for cookie authentication
-/*
+
 app.use(session({
-    secret: process.env.secret,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
 }))
-*/
+
 
 // The mounting of your controllers is ALWAYS at the end of the middleware chaiin,
 // because our routers handle the responses to the client,
@@ -38,8 +39,9 @@ app.use(session({
 app.use('/auth', authCtrl)
 
 
-app.get('/', (req, res) => {
-    res.render('welcome.ejs')
+app.get('/', function(req, res) {
+    console.log(req.session, " <<<<<req session")
+    res.render('welcome.ejs',{ user: req.session.user})
 })
 
 

@@ -20,21 +20,19 @@ router.post('/sign-in', async function (req, res) {
         res.send("sorry error username db") //change for security later
         return
     }
-    if (!bcrypt.compareSync(userInDB.password, req.body.password)) {
+    //plain text pw BEFORE hashed
+    if (!bcrypt.compareSync(req.body.password, userInDB.password)) {
         res.send('sorry error pw!') //change for security later
         return
     }
-    req.session.user = {
-        userSession: userInDB.userName,
+    req.session.user = { //initiallized in server.js
+        userName: userInDB.userName,
         _id: userInDB._id
     }
     res.redirect('/')
 })
 
 
-router.get('/home', function (req, res) {
-    res.render('/auth/inside.ejs')
-})
 
 router.post('/sign-up', async function (req, res) {
     const userInDB = await UserModel.findOne({ userName: req.body.userName })
