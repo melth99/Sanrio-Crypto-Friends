@@ -5,8 +5,13 @@ const UserModel = require('../models/coins')
 
 
 ///////////////
+/*
 
-
+router.get/('new-coin'){
+    res.render()
+    
+}
+*/
 
 
 

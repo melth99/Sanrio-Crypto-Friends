@@ -11,6 +11,9 @@ const session = require('express-session')
 const port = process.env.PORT ? process.env.PORT : "3000";
 mongoose.connect(process.env.MONGODB_URI) //imports mongoose library into node.js app
 
+mongoose.connection.on("connected", () => {
+    console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+  });
 
 // authctrl here later
 // Require the router objects (we call them Controllers, Ctrl for short)
@@ -49,8 +52,6 @@ app.get('/', function(req, res) {
     res.render('welcome.ejs',{ user: req.session.user})
 })
 
-
-
 app.listen(port, () => {
-    console.log(`connected to mongoose on port ${port} lol!`)
+    console.log(`connected to mongoose on port ${port} lol! `)
 })

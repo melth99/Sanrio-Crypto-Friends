@@ -6,6 +6,14 @@ router.get('/new-portfolio', function (req, res) {
     res.render('auth/portfolio/new-portfolio.ejs')
 })
 
+router.get('/index', async function (req, res) {
+    const allPorts = await UserModel.find({}, "portfolio")
+    console.log(UserModel)
+    // console.log(allPorts)
+    //  console.log(allPorts._id)
+    res.render('auth/portfolio/portfolios.ejs', { allPorts })
+})
+
 router.post('/new-portfolio', async function (req, res) {
     try {
         if (!req.session || !req.session.user || !req.session.user._id) {
@@ -38,19 +46,34 @@ router.post('/new-portfolio', async function (req, res) {
 router.get('/:portfolioId', async function (req, res) {
 
     const user = await UserModel.findOne({ "portfolio._id": req.params.portfolioId })
-    console.log("user >>>>",user,"portfolioId >>>>>>" ,req.params.portfolioId)
+    console.log("user >>>>", user, "portfolioId >>>>>>", req.params.portfolioId)
     const foundPort = await user.portfolio.find(portfolio => portfolio._id.toString() === req.params.portfolioId)
-    console.log("foundPort",foundPort)
+    console.log("foundPort", foundPort)
     res.render('auth/portfolio/show.ejs', { foundPort: foundPort })
 
 })
-
-router.put('edit/:portfolioId', async function (res, req) {
+router.get('/edit/:portfolioId', async function (req, res) {
+    //form to edit
     console.log(req.params)
+    const foundUser = await UserModel.findOne({ "portfolio._id": req.params.portfolioId }, { "portfolio.$": 1 })
+    console.log('found!', foundUser)
+    const selectedPortfolio = foundUser.portfolio[0]; 1 //placeholder for the array index of the matched element.
+    res.render('auth/portfolio/edit.ejs', {
+        editId: selectedPortfolio._id,
+        portName: selectedPortfolio.portName,
+        currency: selectedPortfolio.currency
+    })
+})
+
+router.put('/edit/:portfolioId', async function (res, req) {
+    // goes into db and edits data
+    console.log(req.params)
+    const foundUser = await UserModel.findOne({ "portfolio._id": req.params.portfolioId }, { "portfolio.$": 1 })
+    const editedPort = foundUser.
     foundPort = await UserModel.findById(req.params.portfolioId)
-    console.log("FOUNDPORT",foundPort)
+    console.log("FOUNDPORT", foundPort)
     res.send(foundPort)
-    
+
     //res.redirect(`/${foundPort._id}`)
 
 })
