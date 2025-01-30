@@ -67,12 +67,15 @@ router.get('/edit/:portfolioId', async function (req, res) {
 
 router.put('/edit/:portfolioId', async function (res, req) {
     // goes into db and edits data
+    //original portName: 'testing2',
+    //  currency: 'USD',
     console.log(req.params)
-    const foundUser = await UserModel.findOne({ "portfolio._id": req.params.portfolioId }, { "portfolio.$": 1 })
-    const editedPort = foundUser.
-    foundPort = await UserModel.findById(req.params.portfolioId)
-    console.log("FOUNDPORT", foundPort)
-    res.send(foundPort)
+    const updatedUser = await UserModel.findOneAndUpdate({ "portfolio._id": req.params.portfolioId }, {
+    })
+
+    const editedPort = selectedPortfolio.findByIdAndUpdate(req.params.portfolioId, req.body)
+    console.log("FOUNDPORT", editedPort)
+    res.send(editedPort, "yeehaw")
 
     //res.redirect(`/${foundPort._id}`)
 
