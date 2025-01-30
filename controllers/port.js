@@ -25,30 +25,38 @@ router.post('/new-portfolio', async function (req, res) {
         await userOfPort.save() //await is used because save() returns a promise, and we want to wait for the save operation to complete before proceeding.
         console.log(userOfPort)
         console.log("Updated user portfolio", userOfPort.portfolio);
-        res.status(201).send('Portfolio created successfully');
+        //res.status(201).send('Portfolio created successfully');
+        console.log('Portfolio created successfully')
+        res.redirect('/portolios')
     } catch (error) {
         console.error(error);
         res.status(500).send('Error creating portfolio: ')
-
-
     }
-})
-
-router.get('/:portfolioID', function (req, res) {
-    res.render('/show/auth/portfolio/show.ejs')
-})
-
-router.put('/:portfolioId', async function (res, req) {
-    console.log(req.body)
-    foundPort = await UserModel.findByIdAndUpdate(req.body.portfolioId, req.body, { new: true })
-    console.log(foundPort)
-    res.redirect(`/portfolios/${foundPort._id}`)
 
 })
 
+router.get('/:portfolioId', async function (req, res) {
+    console.log("router.get222",req.params.portfolioId)  
+    //const userOfPort = await UserModel.findById(req.session.user._id)  
+    const foundPort = await UserModel.findById(req.params.portfolioId)
+    res.render('auth/portfolio/show.ejs', { foundPort: foundPort })
+
+})
+/*
+router.post('/:portfolioId', async function (res, req) {
+    console.log(req.params)
+    foundPort = await UserModel.findById(req.params.portfolioId)
+    console.log("FOUNDPORT",foundPort)
+    res.send(foundPort)
+    
+    //res.redirect(`/${foundPort._id}`)
+
+})
+
+*/
 router.get('/index', async function (req, res) { //needs id functionality to pubish i think? office hours maybe
     allPorts = await UserModel.find({}, 'portfolio')
-    res.render('auth/portfolio/portfolios.ejs', { allPorts: allPorts })
+    res.render('auth/portfolio/show.ejs')
 })
 
 module.exports = router
