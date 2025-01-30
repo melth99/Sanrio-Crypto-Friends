@@ -16,8 +16,7 @@ router.post('/new-portfolio', async function (req, res) {
         }
         const userOfPort = await UserModel.findById(req.session.user._id)
         console.log("userofport", userOfPort)
-        const existingPort = await userOfPort.portfolio.findOne({ portfolio: req.body.portName })
-        console.log(existingPort)
+        const existingPort = await userOfPort.portfolio.find(port => port.portName === req.body.portName)
         if (existingPort) {
             return res.send("You already have a portfolio with that name silly!")
         }
