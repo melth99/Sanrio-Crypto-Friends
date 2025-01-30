@@ -36,14 +36,16 @@ router.post('/new-portfolio', async function (req, res) {
 })
 
 router.get('/:portfolioId', async function (req, res) {
-    console.log("router.get222",req.params.portfolioId)  
-    //const userOfPort = await UserModel.findById(req.session.user._id)  
-    const foundPort = await UserModel.findById(req.params.portfolioId)
+
+    const user = await UserModel.findOne({ "portfolio._id": req.params.portfolioId })
+    console.log("user >>>>",user,"portfolioId >>>>>>" ,req.params.portfolioId)
+    const foundPort = await user.portfolio.find(portfolio => portfolio._id.toString() === req.params.portfolioId)
+    console.log("foundPort",foundPort)
     res.render('auth/portfolio/show.ejs', { foundPort: foundPort })
 
 })
-/*
-router.post('/:portfolioId', async function (res, req) {
+
+router.put('edit/:portfolioId', async function (res, req) {
     console.log(req.params)
     foundPort = await UserModel.findById(req.params.portfolioId)
     console.log("FOUNDPORT",foundPort)
@@ -53,7 +55,7 @@ router.post('/:portfolioId', async function (res, req) {
 
 })
 
-*/
+
 router.get('/index', async function (req, res) { //needs id functionality to pubish i think? office hours maybe
     allPorts = await UserModel.find({}, 'portfolio')
     res.render('auth/portfolio/show.ejs')

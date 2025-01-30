@@ -9,8 +9,18 @@
 
 <body>
     <h1>Mymelody presents</h1>
-  <p> <%=foundPort%></p>
-
+    <p>
+        <%=foundPort.portName%>
+    </p>
+    <ul>
+        <% if (foundPort.coins) { %>
+            <% foundPort.coins.forEach(coin=> { %>
+                <li>
+                    <%=coin.coinName %>
+                </li>
+                <%});%>
+                    <% } %>
+    </ul>
 </body>
 
 </html>
