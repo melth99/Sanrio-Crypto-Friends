@@ -48,9 +48,6 @@ router.post('/sign-up', async function (req, res) {
 
 
     userDoc = await UserModel.create(req.body)
-
-    console.log(userDoc)
-
     res.render('welcome.ejs', ({ user: userDoc }))
 
 })

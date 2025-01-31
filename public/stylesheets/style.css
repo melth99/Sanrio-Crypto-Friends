@@ -10,12 +10,11 @@ body {
 }
 
 
-
 .index-body {
   background-image: url('https://media.tenor.com/mvo6Do_1c9YAAAAi/cinnamoroll-sanrio.gif');
-  background-repeat: repeat;
-  background-size: 5%;
-  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: right;
   min-height: 70vh;
   width: 70vw;
   color: white;
@@ -90,8 +89,6 @@ body {
 .signin-link:hover {
   background-color: #ffffff;
 }
-
-
 
 .signin-container,
 .signup-container {
@@ -234,4 +231,19 @@ select {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  background-position: center;
+  position: fixed center;
+  width: 80%;
+  height: 50%;
+  background-color: #f6e7e7;
+ 
+ 
+  color: #4b598e;
+  font-weight: bold;
+  flex-direction: column;
 }

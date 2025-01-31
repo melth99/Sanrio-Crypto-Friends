@@ -10,13 +10,13 @@ router.get('/new-coin', function (req, res) {
 
 router.get('/index', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
-    console.log(user)
+    
     const allCoins = user.coins
     if (!allCoins) {
         res.send('you dont have any coins silly!')
     }
     else {
-        console.log(UserModel)
+        
 
 
 
@@ -31,7 +31,7 @@ router.post('/new-coin', async function (req, res) {
         }
 
         const user = await UserModel.findById(req.session.user._id);
-        console.log(user)
+        
         if (!user) {
             return res.status(404).send("User not found");
         }
@@ -47,8 +47,8 @@ router.post('/new-coin', async function (req, res) {
 
         user.coins.push(newCoin);
         await user.save();
-        console.log(newCoin)
-        console.log(user)
+        
+        
 
         res.redirect('./index');
     } catch (error) {
@@ -61,17 +61,17 @@ router.get('/:coinId', async function (req, res) {
 
 
     const user = await UserModel.findById(req.session.user._id, "coins")
-    console.log("user >>>>", user, "coinId >>>>>>", req.params.coinId)
+    
     const foundCoin = await user.coins.find(coin => coin._id.toString() === req.params.coinId)
-    console.log("foundPort", foundCoin)
+    
     res.render('auth/coin/show.ejs', { foundCoin: foundCoin })
 
 })
 router.get('/edit/:coinId', async function (req, res) {
 
-    console.log(req.params)
+    
     const user = await UserModel.findById(req.session.user._id, "coins")
-    console.log('found!', user)
+    
     const selectedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId);
     res.render('auth/coin/edit.ejs', {
         user: user.userName,
@@ -98,7 +98,7 @@ router.put('/edit/:coinId', async function (req, res) {
         { new: true, runValidators: true }
     );
     updatedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId)
-    console.log("Updated coin:", updatedCoin);
+    
     res.render('auth/coin/show.ejs', { foundCoin: updatedCoin });
 
 })
@@ -106,9 +106,9 @@ router.delete('/:coinId', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
 
     const index = user.coins.findIndex(coin => coin._id.toString() === req.params.coinId);
-    console.log(index)
+    
     user.coins.splice(index, 1);
-    console.log(user.coins)
+    
     await user.save()
 
     res.redirect('./index')
