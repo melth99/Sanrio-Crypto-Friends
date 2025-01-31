@@ -29,11 +29,13 @@ Description | Screenshot |
 
 - [⭐] Animations!
 
-- [⭐] Team Rocket Animations!
+- [⭐] Real time crypto currency Data
   
-- [⭐] Hints related to Pokemon Type & abilities!
-  
-- [⭐] fun Pokemon facts between replays!
+- [⭐] Improved UI/UX
+
+- [⭐] Accurate pricing and profits
+    
+- [⭐] Page with crypto currency's cost ranked
 
 - [⭐] Implement a light vs dark mode!
 
