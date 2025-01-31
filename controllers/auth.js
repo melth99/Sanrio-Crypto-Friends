@@ -36,7 +36,7 @@ router.post('/sign-in', async function (req, res) {
 
 
 router.post('/sign-up', async function (req, res) {
-    const userInDB = await UserModel.findOne({ userName: req.body.userName })
+    //const userInDB = await UserModel.findOne({ userName: req.body.userName })
 
 
     if (req.body.password !== req.body.confirmPassword) {
@@ -49,8 +49,12 @@ router.post('/sign-up', async function (req, res) {
 
     userDoc = await UserModel.create(req.body)
     // An instance of a model is called a document. Creating them and saving to the database is easy.
-
     console.log(userDoc)
+    //res.send(`tytyt ${userDoc.userName}`)
+    res.render('welcome.ejs', ({user : userDoc}))
+    
+
+    
 
     // validate email is in format later
 

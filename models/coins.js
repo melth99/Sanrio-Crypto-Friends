@@ -22,18 +22,7 @@ const coinSchema = new mongoose.Schema({
         required: true
     }
 })
-const portfolioSchema = new mongoose.Schema({
-    portName: {
-        type: String,
-        required: true
-    },
-    currency: {
-        type: String,
-        required: true
-    },
-    coins: [coinSchema] //one to many req.body()
 
-})
 //pull out coin to different file
 //portfolio,coin.oush to update array of coins everytime i add a coin
 // instead when coin is added find portfolio with matching name
@@ -62,7 +51,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    portfolio: [portfolioSchema]
+    coins: [coinSchema]
 })
 
 const User = new mongoose.model('User', userSchema)

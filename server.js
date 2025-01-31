@@ -19,8 +19,8 @@ mongoose.connection.on("connected", () => {
 // Require the router objects (we call them Controllers, Ctrl for short)
 // Mount them at the end of the middleware chain
 const authCtrl = require('./controllers/auth')
-const portCtrl = require('./controllers/port')
-//const coinCtrl = require('./controllers/coin')
+//const portCtrl = require('./controllers/port')
+const coinCtrl = require('./controllers/coin')
 
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));
@@ -43,14 +43,15 @@ app.use(session({
 // and our middleware just does things to the request before the endpoint is reached
 // mount our router objects onto the server
 app.use('/auth', authCtrl)
-app.use('/port', portCtrl)
-//app.use('/port/:portId/coin', coinCtrl)
+app.use('/coin', coinCtrl)
+
 
 
 app.get('/', function(req, res) {
-    console.log(req.session, " <<<<<req session")
-    res.render('welcome.ejs',{ user: req.session.user})
-})
+    console.log(req.session, " <<<<<req session");
+    res.render('welcome.ejs', { user: req.session.user });
+});
+
 
 app.listen(port, () => {
     console.log(`connected to mongoose on port ${port} lol! `)
