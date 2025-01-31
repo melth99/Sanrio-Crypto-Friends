@@ -8,15 +8,9 @@
 </head>
 
 <body>
-    <h1>Lets edit!  and <%=editId%> and <%=user%>
+    <h1>Lets edit!  <%=coinName%> and <%=editId%> and <%=user%>
     </h1>
         <form action="/coin/edit/<%=editId%>?_method=PUT" method="POST">
-            <label for="coinName">What coin!</label>
-            <input type="text" name="coinName" id="coinName">
-            <label for="shortName">shortName</label>
-            <input type="text" name="shortName" id="shortName">
-            <label for="cost">cost api value</label>
-            <input type="number" name="cost" id="cost">
             <label for="timeOfPurchase">when buy</label>
             <input type="text" name="timeOfPurchase" id="timeOfPurchase">
             <label for="quantity">how many</label>

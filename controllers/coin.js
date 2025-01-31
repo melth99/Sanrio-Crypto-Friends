@@ -12,15 +12,15 @@ router.get('/index', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
     console.log(user)
     const allCoins = user.coins
-    if (!allCoins){
+    if (!allCoins) {
         res.send('you dont have any coins silly!')
     }
-    else{
-    console.log(UserModel)
-    // console.log(allPorts)
-    //  console.log(allPorts._id)
-    //res.send('yea')
-    res.render('auth/coin/coins.ejs', { allCoins: allCoins })
+    else {
+        console.log(UserModel)
+        // console.log(allPorts)
+        //  console.log(allPorts._id)
+        //res.send('yea')
+        res.render('auth/coin/coins.ejs', { allCoins: allCoins })
     }
 })
 
@@ -70,11 +70,11 @@ router.get('/:coinId', async function (req, res) {
 router.get('/edit/:coinId', async function (req, res) {
     //form to edit
     console.log(req.params)
-    const foundUser = await UserModel.findOne({ "coins._id": req.params.coinId },{ "coin.$": 1, userName: 1 })
-    console.log('found!', foundUser)
-    const selectedCoin = foundUser.coins[0]; 1 //placeholder for the array index of the matched element.
+    const user = await UserModel.findById(req.session.user._id, "coins")
+    console.log('found!', user)
+    const selectedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId); //placeholder for the array index of the matched element.
     res.render('auth/coin/edit.ejs', {
-        user: foundUser.userName,
+        user: user.userName,
         editId: selectedCoin._id,
         coinName: selectedCoin.coinName,
         shortName: selectedCoin.shortName,
@@ -92,13 +92,26 @@ router.get('/edit/:coinId', async function (req, res) {
     */
 })
 
-router.put('/edit/:coinId', async function (res, req) {
-    // goes into db and edits data
-    console.log(req.params)
-    const foundUser = await UserModel.findOne({ "coin._id": req.params.coinoId }, { "coin.$": 1 })
-    foundCoin = await UserModel.findById(req.params.coinId)
-    console.log("FOUNDPORT", foundCoin)
-    res.send(foundCoin)
+router.put('/edit/:coinId', async function (req, res) {
+    const user = await UserModel.findOneAndUpdate(
+        { _id: req.session.user._id, "coins._id": req.params.coinId },
+        {
+            $set: {
+                "coins.$.quantity": req.body.quantity,
+                "coins.$.timeOfPurchase": req.body.timeOfPurchase
+            }
+        },
+        { new: true, runValidators: true }
+    );
+    updatedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId)
+    console.log("Updated coin:", updatedCoin);
+    res.render('auth/coin/show.ejs', { foundCoin: updatedCoin });
+
+})
+router.delete(':/coinId', async function (req, res) {
+    const user = await UserModel.findById(req.session.user._id, "coins")
+    const cashedOut = await user.coins.findByIdAndDelete(req.params.coinId)
+    res.redirect('.index')
 })
 
 

@@ -11,12 +11,15 @@
     <h1>View $</h1>
     <ul>
         <% allCoins.forEach((coin)=> { %>
-            <li><a href="/coin/<%= coin._id %>"></a>
-                <%=coin.coinName%>123
+            <li><a href="/coin/<%= coin._id %>">
+                    <%=coin.coinName%>
+                </a>
+
             </li>
             <% }); %>
     </ul>
     <a href="/coin/new-coin">New coin?</a>
+    
 </body>
 
 </html>
