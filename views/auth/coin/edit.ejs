@@ -15,9 +15,9 @@
         <h1>Lets edit! <%=coinName%> and <%=editId%> and <%=user%>
         </h1>
         <form action="/coin/edit/<%=editId%>?_method=PUT" method="POST">
-            <label for="timeOfPurchase">when buy</label>
+            <label for="timeOfPurchase">When was the initial time of purchase?</label>
             <input type="text" name="timeOfPurchase" id="timeOfPurchase">
-            <label for="quantity">how many</label>
+            <label for="quantity">How many coins should we select?</label>
             <input type="number" name="quantity" id="quantity">
             <button type="submit">Submit here!</button>
         </form>
