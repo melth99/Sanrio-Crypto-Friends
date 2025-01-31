@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1>Mymelody presents <%=foundCoin.coinName%></h1>
+    <h1>Mymelody presents <%=foundCoin.coinName%><%=foundCoin._id %></h1>
 
     <ul>
         <li> Name:  <%=foundCoin.coinName %></li>
@@ -17,6 +17,11 @@
         <li>quantity:   <%=foundCoin.quantity %></li>
         <li>Since when?:    <%=foundCoin.timeOfPurchase %></li>
     </ul>
+
+    <form method="POST" action="/coin/<%= foundCoin._id %>?_method=DELETE">
+		<button type="submit">Ca$h Out</button>
+	</form>
+
     <a href="/coin/edit/<%=foundCoin._id%>">edit this coin?</a>
 
 </body>

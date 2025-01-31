@@ -108,10 +108,16 @@ router.put('/edit/:coinId', async function (req, res) {
     res.render('auth/coin/show.ejs', { foundCoin: updatedCoin });
 
 })
-router.delete(':/coinId', async function (req, res) {
+router.delete('/:coinId', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
-    const cashedOut = await user.coins.findByIdAndDelete(req.params.coinId)
-    res.redirect('.index')
+   // const deletedCoin = await user.coins.find( _id === req.params.coinId)
+    const index = user.coins.findIndex(coin => coin._id.toString() === req.params.coinId);
+    console.log(index)
+    user.coins.pop(index)
+    console.log(user.coins)
+    await user.save()
+    //res.send('deleted')
+    res.redirect('./index')
 })
 
 
