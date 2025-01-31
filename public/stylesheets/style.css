@@ -124,7 +124,7 @@ input {
 }
 
 button {
-  padding: 10px;
+
   background-color: #ce4866;
   color: white;
   border-radius: 30px;
@@ -238,8 +238,8 @@ select {
   justify-content: center;
   background-position: center;
   position: fixed center;
-  width: 80%;
-  height: 50%;
+  width: auto;
+  height: auto;
   background-color: #f6e7e7;
  
  

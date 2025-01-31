@@ -8,18 +8,14 @@ router.get('/new-coin', function (req, res) {
     res.render('auth/coin/new-coin.ejs')
 })
 
-router.get('/index', async function (req, res) {
+router.get('/', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
-    
+
     const allCoins = user.coins
     if (!allCoins) {
         res.send('you dont have any coins silly!')
     }
     else {
-        
-
-
-
         res.render('auth/coin/coins.ejs', { allCoins: allCoins })
     }
 })
@@ -31,7 +27,7 @@ router.post('/new-coin', async function (req, res) {
         }
 
         const user = await UserModel.findById(req.session.user._id);
-        
+
         if (!user) {
             return res.status(404).send("User not found");
         }
@@ -47,10 +43,10 @@ router.post('/new-coin', async function (req, res) {
 
         user.coins.push(newCoin);
         await user.save();
-        
-        
 
-        res.redirect('./index');
+
+
+        res.redirect('/');
     } catch (error) {
         console.error("Error adding new coin:", error);
         res.status(500).send("Error adding new coin");
@@ -61,17 +57,17 @@ router.get('/:coinId', async function (req, res) {
 
 
     const user = await UserModel.findById(req.session.user._id, "coins")
-    
+
     const foundCoin = await user.coins.find(coin => coin._id.toString() === req.params.coinId)
-    
+
     res.render('auth/coin/show.ejs', { foundCoin: foundCoin })
 
 })
 router.get('/edit/:coinId', async function (req, res) {
 
-    
+
     const user = await UserModel.findById(req.session.user._id, "coins")
-    
+
     const selectedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId);
     res.render('auth/coin/edit.ejs', {
         user: user.userName,
@@ -85,7 +81,6 @@ router.get('/edit/:coinId', async function (req, res) {
     })
 
 })
-
 router.put('/edit/:coinId', async function (req, res) {
     const user = await UserModel.findOneAndUpdate(
         { _id: req.session.user._id, "coins._id": req.params.coinId },
@@ -98,20 +93,17 @@ router.put('/edit/:coinId', async function (req, res) {
         { new: true, runValidators: true }
     );
     updatedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId)
-    
+
+
     res.render('auth/coin/show.ejs', { foundCoin: updatedCoin });
 
 })
+
 router.delete('/:coinId', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
-
-    const index = user.coins.findIndex(coin => coin._id.toString() === req.params.coinId);
-    
-    user.coins.splice(index, 1);
-    
+    const removeDoc = user.coins.remove(req.params.coinId);
     await user.save()
-
-    res.redirect('./index')
+    res.redirect('/') // <- this should point to a endpoint Not an ejs page
 })
 
 
