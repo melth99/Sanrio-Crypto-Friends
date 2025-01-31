@@ -1,88 +1,94 @@
 /* public/stylesheets/style.css */
 
 @import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
+
 body {
-    font-family: 'Leckerli One', cursive;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    background-color: #9ac2ef;
-  }
-  
-  /* public/stylesheets/style.css */
+  font-family: 'Leckerli One', cursive;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 100vw;
+  background-color: #9ac2ef;
+}
+
+/* public/stylesheets/style.css */
 
 .index-body {
-    background-image: url('https://sanrio-characters.miamo.fr/src/gif/hello-kitty-sanrio-characters.gif');
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-    width: 100vw;
-    color: white;
-  }
-  
-  .main-header {
-    font-weight: bold;
-    color: black;
-    text-shadow:20px 20px 20px  white;
+  background-image: url('https://media.tenor.com/mvo6Do_1c9YAAAAi/cinnamoroll-sanrio.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 70vh;
+  width: 70vw;
+  color: white;
+}
 
-    font-size: 5.6em;
-    margin: -160px 20px 0 20px;
-  }
+.main-header {
+  font-weight: bold;
+  color: black;
+  text-shadow: 20px 20px 20px white;
+  background-color: pink;
+  font-size: 5.6em;
+  margin: -160px 20px 0 20px;
+}
+
+.subheader {
+  margin: 0 20px 0 20px;
+  font-size: 1.4em;
+}
+
+.index-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
   
-  .subheader {
-    margin: 0 20px 0 20px;
-    font-size: 1.4em;
-  }
-  
-  .index-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .auth-links {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 80px 0 0;
-    height: 400%;
-  }
-  
-  .signup-link,
-  .signin-link {
-    text-decoration: none;
-    font-size: 1.5em;
-    padding: 8px 0;
-    border-radius: 25px;
-    width: 10em;
-    text-align: center;
-  }
-  
-  .signup-link {
-    background-color: #ce4866;
-    color: white;
-    margin: 0 0 20px 0;
-  }
-  
-  .signup-link:hover {
-    background-color: #ff5378;
-  }
-  
-  .signin-link {
-    background-color: #f6e7e7;
-    color: #1c2e5b;
-    margin: 20px 0 0 0;
-  }
-  
-  .signin-link:hover {
-    background-color: #ffffff;
-  }
-  
-  /* public/stylesheets/style.css */
+}
+.text-container {
+  background-color: pink;
+  text-justify: auto;
+}
+
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 80px 0 0;
+  height: 400%;
+}
+
+.signup-link,
+.signin-link {
+  text-decoration: none;
+  font-size: 1.5em;
+  padding: 8px 0;
+  border-radius: 25px;
+  width: 10em;
+  text-align: center;
+}
+
+.signup-link {
+  background-color: #ce4866;
+  color: white;
+  margin: 0 0 20px 0;
+}
+
+.signup-link:hover {
+  background-color: #ff5378;
+}
+
+.signin-link {
+  background-color: #f6e7e7;
+  color: #1c2e5b;
+  margin: 20px 0 0 0;
+}
+
+.signin-link:hover {
+  background-color: #ffffff;
+}
+
+/* public/stylesheets/style.css */
 
 .signin-container,
 .signup-container {
@@ -126,6 +132,7 @@ button {
   margin: 15px 0;
   font-size: 1.1em;
 }
+
 /* public/stylesheets/style.css */
 
 .all-apps-body {
@@ -158,6 +165,7 @@ button {
 .add-app-link:hover {
   background-color: #e84a6c;
 }
+
 /* public/stylesheets/style.css */
 
 ul {
@@ -169,7 +177,7 @@ ul {
   align-items: center;
 }
 
-ul > a {
+ul>a {
   text-decoration: none;
   color: #1c2e5b;
   width: 50%;
@@ -181,10 +189,11 @@ ul > a {
   text-align: center;
 }
 
-ul > a:hover {
+ul>a:hover {
   background-color: #4b598e;
   color: white;
 }
+
 /* public/stylesheets/style.css */
 
 .new-body {
@@ -194,8 +203,8 @@ ul > a:hover {
   height: 100%;
 }
 
-.new-body > form,
-.edit-body > form {
+.new-body>form,
+.edit-body>form {
   height: 70%;
 }
 
@@ -216,4 +225,12 @@ select {
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.add-gif {
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
