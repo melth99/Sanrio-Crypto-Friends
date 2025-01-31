@@ -113,7 +113,7 @@ router.delete('/:coinId', async function (req, res) {
    // const deletedCoin = await user.coins.find( _id === req.params.coinId)
     const index = user.coins.findIndex(coin => coin._id.toString() === req.params.coinId);
     console.log(index)
-    user.coins.pop(index)
+    user.coins.splice(index, 1);
     console.log(user.coins)
     await user.save()
     //res.send('deleted')

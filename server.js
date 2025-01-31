@@ -30,8 +30,7 @@ app.use(methodOverride('_method'));
 
 // new code below this line ---
 app.use(express.static(path.join(__dirname, 'public')));
-// new code above this line ---
-
+//new code above this  
 app.use(
   session({
     secret: process.env.SECRET,
