@@ -1,3 +1,4 @@
+# Sanrio Crypto Friends
 ![sanrio-background-xchdg3ljav9w1yy3](https://github.com/user-attachments/assets/ed34a0ad-826e-4cef-a35f-14a7469f8339)
 
 ## 📝 Description!
@@ -11,8 +12,8 @@ Description | Screenshot |
   |<h3>Logged-in Welcome</h3>|![Screenshot 2025-01-31 at 5 55 44 AM](https://github.com/user-attachments/assets/54a9844a-b796-43a2-923c-ed220dc410bd)|
   |<h3>Buy a Coin!</h3>|![Screenshot 2025-01-31 at 6 26 45 AM](https://github.com/user-attachments/assets/a576cb8a-a228-43d8-b8be-7233545c996c)
   |<h3>Coin Index!</h3>|![Screenshot 2025-01-31 at 6 40 23 AM](https://github.com/user-attachments/assets/8d2f18a5-dff7-49b8-a626-10c72ccdfb0e)
- 
-  |<h3>Team Rocket Victory (We lost) 😢</h3>|![Screenshot 2025-01-10 at 2 00 14 AM](https://github.com/user-attachments/assets/0ae54f62-d6e7-4696-a743-3d750f242e43)
+  |<h3>Show a Coin!!</h3>|![Screenshot 2025-01-31 at 8 52 28 AM](https://github.com/user-attachments/assets/82e9080f-41ec-48a9-bac6-f8b54a737b61)
+  
 
  ## :computer: Technologies Used
 
