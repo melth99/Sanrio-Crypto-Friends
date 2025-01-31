@@ -1,5 +1,3 @@
-/* public/stylesheets/style.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
 
 body {
@@ -11,7 +9,7 @@ body {
   background-color: #9ac2ef;
 }
 
-/* public/stylesheets/style.css */
+
 
 .index-body {
   background-image: url('https://media.tenor.com/mvo6Do_1c9YAAAAi/cinnamoroll-sanrio.gif');
@@ -42,11 +40,12 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  
-  
+
+
 }
+
 .text-container {
- 
+
   font-weight: bold;
   color: black;
   text-shadow: 20px 20px 20px white;
@@ -92,7 +91,7 @@ body {
   background-color: #ffffff;
 }
 
-/* public/stylesheets/style.css */
+
 
 .signin-container,
 .signup-container {
@@ -137,7 +136,7 @@ button {
   font-size: 1.1em;
 }
 
-/* public/stylesheets/style.css */
+
 
 .all-apps-body {
   display: flex;
@@ -170,7 +169,7 @@ button {
   background-color: #e84a6c;
 }
 
-/* public/stylesheets/style.css */
+
 
 ul {
   list-style: none;
@@ -197,8 +196,6 @@ ul>a:hover {
   background-color: #4b598e;
   color: white;
 }
-
-/* public/stylesheets/style.css */
 
 .new-body {
   display: flex;

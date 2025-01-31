@@ -3,7 +3,7 @@ const router = express.Router()
 const UserModel = require('../models/coins')
 
 
-// import this module to hash our passwords
+
 const bcrypt = require('bcrypt')
 
 router.get('/sign-in', (req, res) => {
@@ -18,15 +18,15 @@ router.get('/sign-up', function (req, res) {
 router.post('/sign-in', async function (req, res) {
     const userInDB = await UserModel.findOne({ userName: req.body.username })
     if (!userInDB) {
-        res.send("sorry error username db") //change for security later
+        res.send("sorry error username db")
         return
     }
-    //plain text pw BEFORE hashed
+
     if (!bcrypt.compareSync(req.body.password, userInDB.password)) {
-        res.send('sorry error pw!') //change for security later
+        res.send('sorry error pw!')
         return
     }
-    req.session.user = { //initiallized in server.js
+    req.session.user = {
         userName: userInDB.userName,
         _id: userInDB._id
     }
@@ -36,33 +36,23 @@ router.post('/sign-in', async function (req, res) {
 
 
 router.post('/sign-up', async function (req, res) {
-    //const userInDB = await UserModel.findOne({ userName: req.body.userName })
+
 
 
     if (req.body.password !== req.body.confirmPassword) {
         return res.send('Passwords must match')
     }
-    //encrypts password
+
     hashedPW = bcrypt.hashSync(req.body.password, 10)
     req.body.password = hashedPW
 
 
     userDoc = await UserModel.create(req.body)
-    // An instance of a model is called a document. Creating them and saving to the database is easy.
+
     console.log(userDoc)
-    //res.send(`tytyt ${userDoc.userName}`)
-    res.render('welcome.ejs', ({user : userDoc}))
-    
 
-    
-
-    // validate email is in format later
+    res.render('welcome.ejs', ({ user: userDoc }))
 
 })
 
-
-
-
-
-// router will have all the http endpoints setup up on it for a particular resource, and we'll use the router in the server
 module.exports = router

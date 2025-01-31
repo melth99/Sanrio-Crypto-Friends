@@ -17,9 +17,9 @@ router.get('/index', async function (req, res) {
     }
     else {
         console.log(UserModel)
-        // console.log(allPorts)
-        //  console.log(allPorts._id)
-        //res.send('yea')
+
+
+
         res.render('auth/coin/coins.ejs', { allCoins: allCoins })
     }
 })
@@ -44,13 +44,13 @@ router.post('/new-coin', async function (req, res) {
             quantity: req.body.quantity
         };
 
-        // Assuming the user has a portfolio array
+
         user.coins.push(newCoin);
         await user.save();
         console.log(newCoin)
         console.log(user)
 
-        res.redirect('./index'); // Redirect to the coin index page
+        res.redirect('./index');
     } catch (error) {
         console.error("Error adding new coin:", error);
         res.status(500).send("Error adding new coin");
@@ -59,7 +59,7 @@ router.post('/new-coin', async function (req, res) {
 
 router.get('/:coinId', async function (req, res) {
 
-    // http://localhost:3000/coin/679c15a19899ed5d64bc43ba -beyonce
+
     const user = await UserModel.findById(req.session.user._id, "coins")
     console.log("user >>>>", user, "coinId >>>>>>", req.params.coinId)
     const foundCoin = await user.coins.find(coin => coin._id.toString() === req.params.coinId)
@@ -68,11 +68,11 @@ router.get('/:coinId', async function (req, res) {
 
 })
 router.get('/edit/:coinId', async function (req, res) {
-    //form to edit
+
     console.log(req.params)
     const user = await UserModel.findById(req.session.user._id, "coins")
     console.log('found!', user)
-    const selectedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId); //placeholder for the array index of the matched element.
+    const selectedCoin = user.coins.find(coin => coin._id.toString() === req.params.coinId);
     res.render('auth/coin/edit.ejs', {
         user: user.userName,
         editId: selectedCoin._id,
@@ -83,13 +83,7 @@ router.get('/edit/:coinId', async function (req, res) {
         quantity: selectedCoin.quantity
 
     })
-    /*
-    coinName: req.body.coinName,
-            shortName: req.body.shortName,
-            cost: req.body.cost,
-            timeOfPurchase: req.body.timeOfPurchase,
-            quantity: req.body.quantity
-    */
+
 })
 
 router.put('/edit/:coinId', async function (req, res) {
@@ -110,13 +104,13 @@ router.put('/edit/:coinId', async function (req, res) {
 })
 router.delete('/:coinId', async function (req, res) {
     const user = await UserModel.findById(req.session.user._id, "coins")
-   // const deletedCoin = await user.coins.find( _id === req.params.coinId)
+
     const index = user.coins.findIndex(coin => coin._id.toString() === req.params.coinId);
     console.log(index)
     user.coins.splice(index, 1);
     console.log(user.coins)
     await user.save()
-    //res.send('deleted')
+
     res.redirect('./index')
 })
 

@@ -14,7 +14,7 @@ const coinSchema = new mongoose.Schema({
         required: true
     },
     timeOfPurchase: {
-        type: String, //string for now explore Date() on mdn
+        type: String,
         required: true
     },
     quantity: {
@@ -23,9 +23,9 @@ const coinSchema = new mongoose.Schema({
     }
 })
 
-//pull out coin to different file
-//portfolio,coin.oush to update array of coins everytime i add a coin
-// instead when coin is added find portfolio with matching name
+
+
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
 
 const User = new mongoose.model('User', userSchema)
 
-//const Portfolio = new mongoose.model('Portfolio', 'portfolioSchema')
-//const Coin = new mongoose.model('Coin', 'coinSchema')
+
+
 
 module.exports = User
