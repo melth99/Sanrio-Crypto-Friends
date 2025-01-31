@@ -59,10 +59,10 @@ router.post('/new-coin', async function (req, res) {
 
 router.get('/:coinId', async function (req, res) {
 
-    // http://localhost:3000/coin/679bf4b45b3787cfeca3b6b4 -testing
-    const user = await UserModel.findOne({ "coins._id": req.params.coinId })
+    // http://localhost:3000/coin/679c15a19899ed5d64bc43ba -beyonce
+    const user = await UserModel.findById(req.session.user._id, "coins")
     console.log("user >>>>", user, "coinId >>>>>>", req.params.coinId)
-    const foundCoin = await user.coins.find(coin => coins._id.toString() === req.params.coinsId)
+    const foundCoin = await user.coins.find(coin => coin._id.toString() === req.params.coinId)
     console.log("foundPort", foundCoin)
     res.render('auth/coin/show.ejs', { foundCoin: foundCoin })
 

@@ -8,18 +8,14 @@
 </head>
 
 <body>
-    <h1>Mymelody presents</h1>
-    <p>
-        <%=foundPort.portName%>
-    </p>
+    <h1>Mymelody presents <%=foundCoin.coinName%></h1>
+
     <ul>
-        <% if (foundPort.coins) { %>
-            <% foundPort.coins.forEach(coin=> { %>
-                <li>
-                    <%=coin.coinName %>
-                </li>
-                <%});%>
-                    <% } %>
+        <li> Name:  <%=foundCoin.coinName %></li>
+        <li>Abbreviation:    <%=foundCoin.shortName %></li>
+        <li> Cost:    <%=foundCoin.cost %></li>
+        <li>quantity:   <%=foundCoin.quantity %></li>
+        <li>Since when?:    <%=foundCoin.timeOfPurchase %></li>
     </ul>
 </body>
 
