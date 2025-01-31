@@ -15,8 +15,9 @@ body {
 
 .index-body {
   background-image: url('https://media.tenor.com/mvo6Do_1c9YAAAAi/cinnamoroll-sanrio.gif');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat;
+  background-size: 5%;
+  background-position: center;
   min-height: 70vh;
   width: 70vw;
   color: white;
@@ -26,7 +27,6 @@ body {
   font-weight: bold;
   color: black;
   text-shadow: 20px 20px 20px white;
-  background-color: pink;
   font-size: 5.6em;
   margin: -160px 20px 0 20px;
 }
@@ -43,10 +43,14 @@ body {
   align-items: center;
   height: 100%;
   
+  
 }
 .text-container {
-  background-color: pink;
-  text-justify: auto;
+ 
+  font-weight: bold;
+  color: black;
+  text-shadow: 20px 20px 20px white;
+  font-size: 2.4em;
 }
 
 .auth-links {

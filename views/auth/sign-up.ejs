@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Add this: -->
-<link rel="stylesheet" href="/stylesheets/style.css" />
+    <!-- Add this: -->
+    <link rel="stylesheet" href="/stylesheets/style.css" />
 
     <title>Document</title>
 </head>
@@ -13,22 +13,36 @@
 <body>
     <h1>SIGN UP</h1>
     <div class="signup-container">
-    <form action='/auth/sign-up' method="POST">
-        <div>
-            <label for="firstName">First Name:</label>
-            <input type="text" name="firstName" id="firstName">
-            <label for="lastName">Last Name:</label>
-            <input type="text" name="lastName" id="lastName">
-            <label for="userName">Username:</label>
-            <input type="text" name="userName" id="userName" />
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" />
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" />
-            <label for="email">Email:</label>
-            <input type="text" name="email" id="email">
-            <button type="submit">Sign up</button>
-        </div>
+        <form action='/auth/sign-up' method="POST">
+            <div>
+                <div></div>
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName">
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName">
+            </div>
+            <div>
+                <label for="userName">Username:</label>
+                <input type="text" name="userName" id="userName" />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" />
+            </div>
+            <div>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email">
+            </div>
+            <div>
+                <button type="submit">Sign up</button>
+            </div>
+    </div>
     </form>
     </div>
 </body>
