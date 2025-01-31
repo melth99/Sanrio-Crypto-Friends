@@ -3,24 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add this: -->
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
     <title>Welcome</title>
 </head>
 
 <body>
-    <h1>Welcome to Sanrio Crypto Friends!</h1>
-    <% if (user) { %>
-        <div id="sign-in-welcome">
-            <h1>Hi there <%= user.userName %>!</h1>
-            <h1>Hello Kitty wants to help you get rich!</h1>
-        </div>
-        <a href="coin/new-coin">New coin?</a>
-        <a href="coin/index">View All!</a>
-        <p>link for buying coin go here</p>
-        <% } else { %>
-            <a href="/auth/sign-in">Sign in!</a>
-            <a href="/auth/sign-up">Sign Up!</a>
-            <% } %>
+    <div class="all-apps-body">
+        <h1>Welcome to Sanrio Crypto Friends!</h1>
+        <% if (user) { %>
+            <div id="sign-in-welcome">
+                <h1>Hi there <%= user.userName %>!</h1>
+                <h1>Hello Kitty wants to help you get rich!</h1>
+            </div>
+            <a href="coin/new-coin">New coin?</a>
+            <a href="coin/index">View All!</a>
+            <p>link for buying coin go here</p>
+            <% } else { %>
+                <a href="/auth/sign-in">Sign in!</a>
+                <a href="/auth/sign-up">Sign Up!</a>
+                <% } %>
+    </div>
 </body>
 
 </html>

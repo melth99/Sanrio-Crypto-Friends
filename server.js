@@ -9,6 +9,7 @@ const morgan = require("morgan")
 const session = require('express-session')
 
 const port = process.env.PORT ? process.env.PORT : "3000";
+const path = require('path');
 mongoose.connect(process.env.MONGODB_URI) //imports mongoose library into node.js app
 
 mongoose.connection.on("connected", () => {
@@ -21,6 +22,29 @@ mongoose.connection.on("connected", () => {
 const authCtrl = require('./controllers/auth')
 //const portCtrl = require('./controllers/port')
 const coinCtrl = require('./controllers/coin')
+// server.js
+
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
+// app.use(morgan('dev'));
+
+// new code below this line ---
+app.use(express.static(path.join(__dirname, 'public')));
+// new code above this line ---
+
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+// server.js
+
+
+
+// new code below this line ---
+
 
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));

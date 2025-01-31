@@ -3,38 +3,44 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add this: -->
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
     <title>Show</title>
 </head>
 
 <body>
-    <h1>Mymelody presents <%=foundCoin.coinName%>
-            <%=foundCoin._id %>
-    </h1>
 
-    <ul>
-        <li> Name: <%=foundCoin.coinName %>
-        </li>
-        <li>Abbreviation: <%=foundCoin.shortName %>
-        </li>
-        <li> Cost: <%=foundCoin.cost %>
-        </li>
-        <li>quantity: <%=foundCoin.quantity %>
-        </li>
-        <li>Since when?: <%=foundCoin.timeOfPurchase %>
-        </li>
-    </ul>
+        <div class="show-body">
+            <div class="show-header">
+                <h1>Mymelody presents <%=foundCoin.coinName%>
+                        <%=foundCoin._id %>
+                </h1>
+            </div>
+            <ul>
+                <li> Name: <%=foundCoin.coinName %>
+                </li>
+                <li>Abbreviation: <%=foundCoin.shortName %>
+                </li>
+                <li> Cost: <%=foundCoin.cost %>
+                </li>
+                <li>quantity: <%=foundCoin.quantity %>
+                </li>
+                <li>Since when?: <%=foundCoin.timeOfPurchase %>
+                </li>
+            </ul>
 
-    <form method="POST" action="/coin/<%= foundCoin._id %>?_method=DELETE">
-        <button type="submit">Ca$h Out</button>
-    </form>
-    <button>
-        <a href="/coin/edit/<%=foundCoin._id%>">edit this coin?</a>
-    </button>
-    <button>
-        <a href="/coin/index">View All!</a>
-    </button>
-
+            <form method="POST" action="/coin/<%= foundCoin._id %>?_method=DELETE">
+                <button type="submit">Ca$h Out</button>
+            </form>
+            <button>
+                <a href="/coin/edit/<%=foundCoin._id%>">edit this coin?</a>
+            </button>
+            <button>
+                <a href="/coin/index">View All!</a>
+            </button>
+        </div>
 </body>
 
 </html>

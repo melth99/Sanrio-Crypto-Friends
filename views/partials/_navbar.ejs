@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- views/partials/_navbar.ejs -->
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <nav>
+        <% if(user) { %>
+            <div class="navbar">
+                <h1 id="nav-header">Sanrio Crypto Friends</h1>
+                <div class="nav-links">
+                    <a class="signup-link" href="/auth/sign-up">Sign Up</a>
+                    <a class="signin-link" href="/auth/sign-in">Sign In</a>
+
+                </div>
+                <% } %>
+    </nav>
+
+</body>
+
+</html>

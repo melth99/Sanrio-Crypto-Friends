@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Add this: -->
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
     <title></title>
 </head>
 <body>
     <h1>New coin</h1>
+    <div class="new-body">
     <form action="/coin/new-coin" method="POST">
         <label for="coinName">What coin!</label>
         <input type="text" name="coinName" id="coinName">
@@ -20,6 +24,6 @@
         <input type="number" name="quantity" id="quantity">
         <button type="submit">Submit here!</button>
     </form>
-    
+    </div>
 </body>
 </html>

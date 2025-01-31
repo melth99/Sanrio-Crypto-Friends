@@ -1,0 +1,219 @@
+/* public/stylesheets/style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
+body {
+    font-family: 'Leckerli One', cursive;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: #9ac2ef;
+  }
+  
+  /* public/stylesheets/style.css */
+
+.index-body {
+    background-image: url('https://sanrio-characters.miamo.fr/src/gif/hello-kitty-sanrio-characters.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100vw;
+    color: white;
+  }
+  
+  .main-header {
+    font-weight: bold;
+    color: black;
+    text-shadow:20px 20px 20px  white;
+
+    font-size: 5.6em;
+    margin: -160px 20px 0 20px;
+  }
+  
+  .subheader {
+    margin: 0 20px 0 20px;
+    font-size: 1.4em;
+  }
+  
+  .index-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .auth-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 80px 0 0;
+    height: 400%;
+  }
+  
+  .signup-link,
+  .signin-link {
+    text-decoration: none;
+    font-size: 1.5em;
+    padding: 8px 0;
+    border-radius: 25px;
+    width: 10em;
+    text-align: center;
+  }
+  
+  .signup-link {
+    background-color: #ce4866;
+    color: white;
+    margin: 0 0 20px 0;
+  }
+  
+  .signup-link:hover {
+    background-color: #ff5378;
+  }
+  
+  .signin-link {
+    background-color: #f6e7e7;
+    color: #1c2e5b;
+    margin: 20px 0 0 0;
+  }
+  
+  .signin-link:hover {
+    background-color: #ffffff;
+  }
+  
+  /* public/stylesheets/style.css */
+
+.signin-container,
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  color: #1c2e5b;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 20em;
+  height: 50%;
+  background-color: #f6e7e7;
+  padding: 30px 40px 20px 40px;
+  border-radius: 20px;
+  color: #4b598e;
+  font-weight: bold;
+}
+
+input {
+  border: 1px solid rgb(182, 182, 182);
+  padding: 8px;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px;
+  background-color: #ce4866;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+/* public/stylesheets/style.css */
+
+.all-apps-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.all-apps-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 90%;
+}
+
+.add-app-link {
+  padding: 10px;
+  background-color: #ce4866;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  font-size: 1.1em;
+  padding: 2px 25px;
+  text-decoration: none;
+}
+
+.add-app-link:hover {
+  background-color: #e84a6c;
+}
+/* public/stylesheets/style.css */
+
+ul {
+  list-style: none;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ul > a {
+  text-decoration: none;
+  color: #1c2e5b;
+  width: 50%;
+  background-color: #f6e7e7;
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin: 15px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+ul > a:hover {
+  background-color: #4b598e;
+  color: white;
+}
+/* public/stylesheets/style.css */
+
+.new-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.new-body > form,
+.edit-body > form {
+  height: 70%;
+}
+
+textarea,
+select {
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+select {
+  margin-bottom: 10px;
+}
+
+.edit-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

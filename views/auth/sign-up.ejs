@@ -3,13 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Add this: -->
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
     <title>Document</title>
 </head>
 
 <body>
     <h1>SIGN UP</h1>
-    <h2>form goes here</h2>
+    <div class="signup-container">
     <form action='/auth/sign-up' method="POST">
         <div>
             <label for="firstName">First Name:</label>
@@ -27,6 +30,7 @@
             <button type="submit">Sign up</button>
         </div>
     </form>
+    </div>
 </body>
 
 </html>
