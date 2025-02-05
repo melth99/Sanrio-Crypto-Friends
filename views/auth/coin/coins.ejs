@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/coins.css" />
 
     <title>View coinz</title>
 
@@ -17,8 +17,9 @@
 
         <div class="index-container">
             <div class="text-container">
-                <h1 class="main-header">Coins!</h1>
-                <h3></h3>
+                <div class="cloud">
+                    <h1 class="main-header"> Coins!</h1>
+                </div>
                 <ul>
                     <% allCoins.forEach((coin)=> { %>
                         <li><a href="/coin/<%= coin._id %>">

@@ -248,15 +248,3 @@ select {
   flex-direction: column;
 }
 
-.cloud {
-
-  width: 200px;
-  height: 100px;
-  background-color: #e0e0e0;
-  /* Light grey cloud color */
-  border-radius: 50% 50% 0 0;
-  /* Rounded top corners */
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-  /* Subtle shadow */
-
-}

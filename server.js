@@ -10,11 +10,13 @@ const session = require('express-session')
 
 const port = process.env.PORT ? process.env.PORT : "3000";
 const path = require('path');
-mongoose.connect(process.env.MONGODB_URI) 
+mongoose.connect(process.env.MONGODB_URI)
+const baseURL = 'http://api.coinlayer.com/'
+
 
 mongoose.connection.on("connected", () => {
-    
-  });
+
+});
 
 
 
@@ -54,28 +56,54 @@ app.use(morgan('dev'));
 
 
 app.use(session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-    
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+
 }))
 
+//FETCH CATCH COINLAYER API GOES HERE
+
+//start date
+// this code is only on the professional plan :(
+async function timeframeData() {
+  const startDate = '2025-01-22' //input from new coin page goes here using this date for now
+  const endDate = '2025-01-24' //Date.now()
+  endpoint = 'timeframe'
+  const reqURL = baseURL + endpoint + '?' + 'access_key='+process.env.ACCESS_KEY + '&start_date' + startDate + '&end_date' + endDate + ' &symbols = BTC,ETH'
+
+  fetch(reqURL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('HTTP ERROR!!! USING COINLAYER:', response.status)
+      } return response.json()
+        .then(data => {
+          console.log("here it is!!!!", data)
+        })
+        .catch(error => {
+          console.error('error fetching data!', error)
+
+        })
+    })
+
+}
 
 
 
+timeframeData()
 
+////////////////////////
 
 app.use('/auth', authCtrl)
 app.use('/coin', coinCtrl)
 
 
+app.get('/', function (req, res) {
 
-app.get('/', function(req, res) {
-    
-    res.render('welcome.ejs', { user: req.session.user });
+  res.render('welcome.ejs', { user: req.session.user });
 });
 
 
 app.listen(port, () => {
-    
+
 })
