@@ -8,20 +8,25 @@
     "start": "node server.js",
     "dev": "nodemon server.js -e css,ejs,js,json"
   },
-
+  "engines": {
+    "node": "18.x",
+    "npm": "10.x"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
     "express-session": "^1.18.1",
     "method-override": "^3.0.0",
     "mongodb": "^6.13.0",
     "mongoose": "^8.9.6",
     "morgan": "^1.10.0",
-    "notenv": "^2.0.3",
     "session": "^0.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }
