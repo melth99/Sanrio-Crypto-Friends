@@ -62,37 +62,6 @@ app.use(session({
 
 }))
 
-//FETCH CATCH COINLAYER API GOES HERE
-
-//start date
-// this code is only on the professional plan :(
-async function timeframeData() {
-  const startDate = '2025-01-22' //input from new coin page goes here using this date for now
-  const endDate = '2025-01-24' //Date.now()
-  endpoint = 'timeframe'
-  const reqURL = baseURL + endpoint + '?' + 'access_key='+process.env.ACCESS_KEY + '&start_date' + startDate + '&end_date' + endDate + ' &symbols = BTC,ETH'
-
-  fetch(reqURL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('HTTP ERROR!!! USING COINLAYER:', response.status)
-      } return response.json()
-        .then(data => {
-          console.log("here it is!!!!", data)
-        })
-        .catch(error => {
-          console.error('error fetching data!', error)
-
-        })
-    })
-
-}
-
-
-
-timeframeData()
-
-////////////////////////
 
 app.use('/auth', authCtrl)
 app.use('/coin', coinCtrl)
