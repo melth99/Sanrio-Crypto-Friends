@@ -4,6 +4,9 @@
 ## 📝 Description!
 Sanrio Crypto Friends offers an adorable approach to cryptocurrency trading. Upon signing up or logging in, users are greeted with a welcoming interface that allows them to view their current crypto portfolio or acquire new digital assets. The platform provides flexibility by enabling users to adjust the acquisition date of their holdings or expand their coin collection. For those looking to liquidate their assets, the system offers a "cash out" feature, allowing users to sell all coins of a specific cryptocurrency. In database terms, this action effectively removes the coin from the user's index, aligning with the "Delete" operation in CRUD (Create, Read, Update, Delete) functionality.
 
+## :money_with_wings: Visit Here 
+https://sanriocryptofriends-ad153e5cb950.herokuapp.com/
+
 Description | Screenshot | 
   |:-------------:| -----------|
   |<h3>Opening Screen</h3>|![Screenshot 2025-01-31 at 5 48 53 AM](https://github.com/user-attachments/assets/26b252a2-2f81-472c-964f-74dee09b2012)
