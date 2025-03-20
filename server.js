@@ -11,12 +11,7 @@ const session = require('express-session')
 const port = process.env.PORT ? process.env.PORT : "3000";
 const path = require('path');
 mongoose.connect(process.env.MONGODB_URI)
-//hconst baseURL = 'http://api.coinlayer.com/'
-/* 
-function historyCoin(){
-  process.env.
 
-} */
 
 mongoose.connection.on("connected", () => {
 
