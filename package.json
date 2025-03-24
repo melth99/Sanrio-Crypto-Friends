@@ -8,12 +8,10 @@
     "start": "node server.js",
     "dev": "nodemon server.js -e css,ejs,js,json"
   },
-  
-    "engines": {
-      "node": ">=20.17.0",
-      "npm": ">=11.1.0"
-    },
-  
+  "engines": {
+    "node": ">=20.17.0",
+    "npm": ">=11.1.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
