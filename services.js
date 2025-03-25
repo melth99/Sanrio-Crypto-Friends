@@ -1,4 +1,6 @@
+const { randomBytes } = require("crypto")
 const dotenv = require("dotenv")
+const { captureRejectionSymbol } = require("events")
 dotenv.config({path:'.env'})
 const baseURL = 'http://api.coinlayer.com/'
 
@@ -37,7 +39,7 @@ async function fetchConvert() {
             throw new Error(`Response status: ${response.status}`)
         }
         const json = await response.json()
-        console.log(json)
+        console.log(json.rates)
     }
     catch (err) {
         console.error(err.message)
@@ -45,25 +47,38 @@ async function fetchConvert() {
 
 }
 // await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&expand=1`)//
-async function fetchList() {
+async function fetchList() { //default value null
     const endpoint = 'list'
-    console.log(process.env.ACCESS_KEY)
+    
     try {
         
         const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}`)
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
-        }
+            }
+        
         const json = await response.json()
-        console.log(json)
-
+        //console.log(json) //prints all currency data as wll as each cryptocurrency
+        //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
+        //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
+        //console.log(json.crypto.ACP.max_supply) // different for fetch live.
+    
     } catch (err) {
-        console.error(err.message)
-    }
+        console.error(err)
+    }}
 
-}
+
 
 async function fetchLiveData() {
+    //extended results includes
+/*    timestamp -exact utc timestamp
+    default target for specified currency
+    exchange rate
+    high/low ER- highest/lowest midpoint exchange rate on that day 
+    volume - volume of cryptocurrency exchanged on requested date
+    market cap - total value of crypto currency
+
+    */
     const endpoint = 'live' //added '?'
     //const symbol = input("What Cryptocurrency would you like (for now write 'btc'")
     try {
@@ -80,7 +95,7 @@ async function fetchLiveData() {
 
 }
 
-//fetchLiveData()
+//fetchLiveDa()
 fetchList()
 //fetchHistory()
 //fetchConvert()
