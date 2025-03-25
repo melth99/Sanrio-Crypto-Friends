@@ -11,20 +11,15 @@ const session = require('express-session')
 const port = process.env.PORT ? process.env.PORT : "3000";
 const path = require('path');
 mongoose.connect(process.env.MONGODB_URI)
-const baseURL = 'http://api.coinlayer.com/'
 
 
 mongoose.connection.on("connected", () => {
 
 });
 
-
-
-
 const authCtrl = require('./controllers/auth')
 
 const coinCtrl = require('./controllers/coin')
-
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
@@ -40,13 +35,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-
-
-
-
-
-
 
 app.use(express.urlencoded({ extended: false }));
 
