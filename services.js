@@ -4,24 +4,54 @@ const { captureRejectionSymbol } = require("events")
 dotenv.config({ path: '.env' })
 const baseURL = 'http://api.coinlayer.com/'
 
+
 // https://coinlayer.com/documentation
 
-async function fetchHistory() {
+async function fetchHistory(coinSymbol = null) {
 
+    /* Definitions
+     rate: This is the average exchange rate of XTZ on the specified date. In this case, it's 2.68217.
+
+    high: The highest exchange rate recorded for XTZ on that date, which is 2.9392.
+    
+    low: The lowest exchange rate recorded for XTZ on that date, which is 2.58659.
+    
+    vol: The trading volume of XTZ on that date, which is 535313.10018. This represents the total amount of XTZ traded.
+    
+    cap: The market capitalization of XTZ on that date. In this case, it's listed as 0, which might be an error or indicate that this data was not available.
+    
+    sup: The total supply of XTZ on that date. Again, it's listed as 0, which could be due to missing data.
+    ++++++++++++cryptocurrency data, change and change_pct are often calculated relative to the previous day's closing price.+++++++
+    change: The absolute change in XTZ's exchange rate from the previous day or period. Here, it's -0.22506000000000004.
+    
+    change_pct: The percentage change in XTZ's exchange rate from the previous day or period. In this case, it's -7.74138957014065%. */
     //const endpoint = prompt("Can you provide the date in YYYY-MM-DD format?")cd ..
-    const endpoint = '2018-04-01'
+    const endpoint = '2025-03-24'
+    // const before = '20-03-31'
     try {
         const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&expand=1`)
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json()
-        console.log(json)
+        if (coinSymbol){
+            console.log(json.rates[coinSymbol])
+        }
+        else{
+            console.log(json.rates)
+        }
+
 
     } catch (err) {
         console.error(err.message)
     }
+
+
+
+
 }
+
+
 
 async function fetchConvert() {
     const fromThisCoin = 'BTC'
@@ -66,7 +96,7 @@ async function fetchList(coinSymbol = null) { //default value null
         if (coinSymbol) { // specific coin
             console.log(json.crypto[coinSymbol])
         }
-        else {  
+        else {
             console.log(json.crypto)
         }
     } catch (err) {
@@ -103,7 +133,8 @@ async function fetchLiveData() {
 }
 
 //fetchLiveDa()
-//fetchHistory()
+fetchHistory(coinSymbol = '')
 //fetchConvert()
-const coinSymbol = 'ZSC'
+/* const coinSymbol = 'ZSC'
 fetchList(coinSymbol)
+ */
