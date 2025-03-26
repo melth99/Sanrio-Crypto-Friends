@@ -52,7 +52,6 @@ async function fetchHistory(coinSymbol = null) {
 }
 
 
-
 async function fetchConvert() {
     const endpoint = 'convert'
     const from = 'ETH'
@@ -76,12 +75,12 @@ async function fetchConvert() {
 
 }
 // await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&expand=1`)//
+
 async function fetchList(coinSymbol = null) { //default value null
     const endpoint = 'list'
 
     try {
-
-        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&extend=1`)
+        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}`) //&extend=1
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -91,19 +90,20 @@ async function fetchList(coinSymbol = null) { //default value null
         //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
         //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
         //console.log(json.crypto[coinSymbol]) // different for fetch live.
+        //console.log(Object.keys(json.crypto)) all crypto symbols
 
         if (coinSymbol) { // specific coin
             console.log(json.crypto[coinSymbol])
         }
         else {
+            //console.log(`${Object.keys(json.crypto)},,,,,,, `)
+            console.log(`${Object.keys(json.crypto)}`)
             console.log(json.crypto)
         }
     } catch (err) {
         console.error(err)
     }
 }
-
-
 
 async function fetchLiveData() {
     //extended results includes
@@ -133,7 +133,6 @@ async function fetchLiveData() {
 
 //fetchLiveDa()
 //fetchHistory(coinSymbol = '')
-fetchConvert()
-/* const coinSymbol = 'ZSC'
-fetchList(coinSymbol)
- */
+//fetchConvert()
+/* const coinSymbol = 'ZSC'*/
+fetchList(coinSymbol=null)
