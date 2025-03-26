@@ -54,22 +54,21 @@ async function fetchHistory(coinSymbol = null) {
 
 
 async function fetchConvert() {
-    const fromThisCoin = 'BTC'
-    const toThisCoin = 'ETH'
     const endpoint = 'convert'
-    const from = fromThisCoin
-    const to = toThisCoin
-    const date = null
+    const from = 'ETH'
+    const to = 'DOGE'
+    const date = '2025-03-01'
     const amount = 100 // 100$
+    //answers how many BTC's are in an ETH
 
     try {
 
-        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&from=${from}&to=${to}&amount=${amount}`)
+        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&from=${from}&to=${to}&amount=${amount}&date=${date}`)
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`)
         }
         const json = await response.json()
-        console.log(json.rates)
+        console.log(json)
     }
     catch (err) {
         console.error(err.message)
@@ -133,8 +132,8 @@ async function fetchLiveData() {
 }
 
 //fetchLiveDa()
-fetchHistory(coinSymbol = '')
-//fetchConvert()
+//fetchHistory(coinSymbol = '')
+fetchConvert()
 /* const coinSymbol = 'ZSC'
 fetchList(coinSymbol)
  */
