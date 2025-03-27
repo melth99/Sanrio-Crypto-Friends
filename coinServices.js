@@ -3,7 +3,7 @@ const dotenv = require("dotenv")
 const axios = require('axios')
 const express = require('express')
 const app = express();
-app.use(express.json());
+app.use(express.json()); //middleware nessesary to parse incoming json data. Parsed json data is now available in req.body
 
 //onst { captureRejectionSymbol } = require("events")
 dotenv.config({ path: '.env' })
@@ -13,7 +13,7 @@ const baseURL = 'http://api.coinlayer.com/'
 
 
 // https://coinlayer.com/documentation
-
+//convert
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
 
