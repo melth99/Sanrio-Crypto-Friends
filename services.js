@@ -5,7 +5,7 @@ const express = require('express')
 const app = express();
 app.use(express.json());
 
-const { captureRejectionSymbol } = require("events")
+//onst { captureRejectionSymbol } = require("events")
 dotenv.config({ path: '.env' })
 const endpoint = ''
 const baseURL = 'http://api.coinlayer.com/'
@@ -16,8 +16,7 @@ const baseURL = 'http://api.coinlayer.com/'
 
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
-    /* const coinFrom = ''
-    const coinTo = 'DOGE' */
+    
     //const fromQuantity = 100
     //const whatDay = ''
     // const before = '20-03-31'
@@ -45,6 +44,7 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
 //live
 app.get(`/list`, async (req, res) => {
+
     /*      timestamp -exact utc timestamp
             default target for specified currency
             exchange rate
@@ -52,18 +52,16 @@ app.get(`/list`, async (req, res) => {
             volume - volume of cryptocurrency exchanged on requested date
             market cap - total value of crypto currency
         
-            */
-
-        //console.log(json) //prints all currency data as wll as each cryptocurrency
-        //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
-        //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
-        //console.log(json.crypto[coinSymbol]) // different for fetch live.
-        //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols
+             //console.log(json) //prints all currency data as wll as each cryptocurrency
+             //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
+             //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
+             //console.log(json.crypto[coinSymbol]) // different for fetch live.
+             //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols */
     try {
         const response = await axios.get(`${baseURL}list`, {
             params: {
                 access_key: process.env.ACCESS_KEY,
-                extend:1
+                expand: 1
             }
         });
         const json = response.data;
@@ -76,6 +74,52 @@ app.get(`/list`, async (req, res) => {
         }
     } catch (err) {
         console.error("Error:", err.message)
+    }
+})
+
+app.get('/live', async (req, res) => {
+    try {
+        const response = await axios.get(`${baseURL}live`, {
+            params: {
+                access_key: process.env.ACCESS_KEY,
+                expand: 1
+            }
+        });
+        const json = response.data;
+        res.json(json)
+
+        if (json) {
+            //  console.log(`${Object.keys(json.crypto)} `)
+            console.log(json)
+        } else {
+            console.log("Failed request :(", json);
+        }
+    } catch (err) {
+        console.error("Error:", err.message)
+    }
+})
+
+app.get('/historical/:date/:target?', async (req, res) => {
+    const date = req.params.date
+    const target = req.params.target || 'USD'
+    try {
+        const response = await axios.get(`${baseURL}${date}`, { // makes sure date param is first
+            params: {
+                //date: date,// YYYY-MM-DD format & required
+                access_key: process.env.ACCESS_KEY,
+                target: target, //default dollars fiat USES FIAT CODE
+                expand: 1,
+               
+
+                //can do symbols if needed
+            }
+        })
+        const json = response.data
+        res.json(json)
+        console.log(json)
+    }
+    catch (err) {
+        console.error(err.message)
     }
 })
 
@@ -104,66 +148,9 @@ change_pct: The percentage change in XTZ's exchange rate from the previous day o
 /* 
 
    
-app.get async function fetchConvert({
-    const endpoint = 'convert'
-    const from = 'ETH'
-    const to = 'DOGE'
-    const date = '2025-03-01'
-    const amount = 100 // 100$
-    //answers how many BTC's are in an ETH
-
-    try {
-
-        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&from=${from}&to=${to}&amount=${amount}&date=${date}`)
-        if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`)
-}
-const json = await response.json()
-console.log(json)
-    }
-    catch (err) {
-    console.error(err.message)
-}
-
-})
 
 
 
-
-
-// await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&expand=1`)//
-
-async function fetchList(coinSymbol = null) { //default value null
-    const endpoint = 'list'
-
-    try {
-        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}`) //&extend=1
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        const json = await response.json()
-        //console.log(json) //prints all currency data as wll as each cryptocurrency
-        //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
-        //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
-        //console.log(json.crypto[coinSymbol]) // different for fetch live.
-        //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols
-
-        /*     if (coinSymbol) { // specific coin
-                console.log(json.crypto[coinSymbol])
-            }
-            else {
-                //console.log(`${Object.keys(json.crypto)},,,,,,, `)
-                console.log(`${Object.keys(json.crypto)}`)
-                console.log(json.crypto)
-            } */
-/*     } catch (err) {
-        console.error(err)
-    }
-}
- */
-//async function fetchLiveData() { 
-//extended results includes
 
 //const endpoint = 'live' //added '?'
 //const symbol = input("What Cryptocurrency would you like (for now write 'btc'")
