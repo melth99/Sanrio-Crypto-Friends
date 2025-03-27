@@ -1,13 +1,44 @@
-const { randomBytes } = require("crypto")
+
 const dotenv = require("dotenv")
+const axios = require('axios')
+const express = require('express')
+const app = express();
+app.use(express.json());
+
 const { captureRejectionSymbol } = require("events")
 dotenv.config({ path: '.env' })
+const endpoint = ''
 const baseURL = 'http://api.coinlayer.com/'
 
 
 // https://coinlayer.com/documentation
 
-async function fetchHistory(coinSymbol = null) {
+app.get(``, async (req, res) => {
+
+    const coinFrom = 'BTC'
+    const coinTo = 'DOGE'
+    const fromQuantity = 100
+    //const whatDay = ''
+    // const before = '20-03-31'
+      try {
+        const response = await axios.get(`${baseURL}convert`, {
+            params: {
+                access_key: process.env.ACCESS_KEY,
+                from: coinFrom,
+                to: coinTo,
+                amount: fromQuantity,
+            }
+        });
+        const json = response.data;
+
+        if (json.rates && json.rates[coinTo]) {
+            console.log(`Exchange Rate (${coinFrom} → ${coinTo}):`, json.rates[coinTo]);
+        } else {
+            console.log("Rates data not available:", json);
+        }
+    } catch (err) {
+        console.error("Error:", err.message)
+}})
 
     /* Definitions
      rate: This is the average exchange rate of XTZ on the specified date. In this case, it's 2.68217.
@@ -26,33 +57,10 @@ async function fetchHistory(coinSymbol = null) {
     
     change_pct: The percentage change in XTZ's exchange rate from the previous day or period. In this case, it's -7.74138957014065%. */
     //const endpoint = prompt("Can you provide the date in YYYY-MM-DD format?")cd ..
-    const endpoint = '2025-03-24'
-    // const before = '20-03-31'
-    try {
-        const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&expand=1`)
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json()
-        if (coinSymbol){
-            console.log(json.rates[coinSymbol])
-        }
-        else{
-            console.log(json.rates)
-        }
+/* 
 
-
-    } catch (err) {
-        console.error(err.message)
-    }
-
-
-
-
-}
-
-
-async function fetchConvert() {
+   
+app.get async function fetchConvert({
     const endpoint = 'convert'
     const from = 'ETH'
     const to = 'DOGE'
@@ -64,16 +72,21 @@ async function fetchConvert() {
 
         const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&from=${from}&to=${to}&amount=${amount}&date=${date}`)
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`)
-        }
-        const json = await response.json()
-        console.log(json)
+    throw new Error(`Response status: ${response.status}`)
+}
+const json = await response.json()
+console.log(json)
     }
     catch (err) {
-        console.error(err.message)
-    }
-
+    console.error(err.message)
 }
+
+})
+
+
+
+
+
 // await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}&expand=1`)//
 
 async function fetchList(coinSymbol = null) { //default value null
@@ -90,22 +103,22 @@ async function fetchList(coinSymbol = null) { //default value null
         //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
         //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
         //console.log(json.crypto[coinSymbol]) // different for fetch live.
-        //console.log(Object.keys(json.crypto)) all crypto symbols
+        //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols
 
-        if (coinSymbol) { // specific coin
-            console.log(json.crypto[coinSymbol])
-        }
-        else {
-            //console.log(`${Object.keys(json.crypto)},,,,,,, `)
-            console.log(`${Object.keys(json.crypto)}`)
-            console.log(json.crypto)
-        }
-    } catch (err) {
+        /*     if (coinSymbol) { // specific coin
+                console.log(json.crypto[coinSymbol])
+            }
+            else {
+                //console.log(`${Object.keys(json.crypto)},,,,,,, `)
+                console.log(`${Object.keys(json.crypto)}`)
+                console.log(json.crypto)
+            } */
+/*     } catch (err) {
         console.error(err)
     }
 }
-
-async function fetchLiveData() {
+ */
+//async function fetchLiveData() { 
     //extended results includes
     /*    timestamp -exact utc timestamp
         default target for specified currency
@@ -115,9 +128,9 @@ async function fetchLiveData() {
         market cap - total value of crypto currency
     
         */
-    const endpoint = 'live' //added '?'
+    //const endpoint = 'live' //added '?'
     //const symbol = input("What Cryptocurrency would you like (for now write 'btc'")
-    try {
+/*     try {
         const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}& expand = 1`)
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
@@ -129,10 +142,14 @@ async function fetchLiveData() {
         console.error(err.message)
     }
 
-}
+} */
+
+app.listen(3001, () => {
+    console.log('Server listening on port 3001');
+  });
 
 //fetchLiveDa()
 //fetchHistory(coinSymbol = '')
 //fetchConvert()
 /* const coinSymbol = 'ZSC'*/
-fetchList(coinSymbol=null)
+//fetchList(coinSymbol = null)

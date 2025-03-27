@@ -9,7 +9,7 @@ const coinSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    cost: {
+    cost: { //dollar value
         type: Number,
         required: true
     },
