@@ -16,7 +16,7 @@ const baseURL = 'http://api.coinlayer.com/'
 
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
-    
+
     //const fromQuantity = 100
     //const whatDay = ''
     // const before = '20-03-31'
@@ -99,17 +99,20 @@ app.get('/live', async (req, res) => {
     }
 })
 
-app.get('/historical/:date/:target?', async (req, res) => {
+app.get('/historical/:date/:target?/:symbols?', async (req, res) => {
     const date = req.params.date
     const target = req.params.target || 'USD'
+    const symbols = req.params.symbols || ''
     try {
         const response = await axios.get(`${baseURL}${date}`, { // makes sure date param is first
             params: {
                 //date: date,// YYYY-MM-DD format & required
                 access_key: process.env.ACCESS_KEY,
                 target: target, //default dollars fiat USES FIAT CODE
+                symbols: symbols, //optional, but use this format if you choose" BTC,DOGE,ETH"
                 expand: 1,
-               
+
+
 
                 //can do symbols if needed
             }
