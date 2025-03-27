@@ -77,11 +77,17 @@ app.get(`/list`, async (req, res) => {
     }
 })
 
-app.get('/live', async (req, res) => {
+app.get(`/live/:symbols?/:target?`, async (req, res) => {
+    const target = req.params.target || 'USD'
+    const symbols = req.params.symbols || ''
+    //if routing with a specific target(fiat) but no specific coin - 
+    // use this template '/live/?/USD'
     try {
         const response = await axios.get(`${baseURL}live`, {
             params: {
                 access_key: process.env.ACCESS_KEY,
+                symbols: symbols,
+                target: target,
                 expand: 1
             }
         });
