@@ -11,17 +11,50 @@ const endpoint = ''
 const baseURL = 'http://api.coinlayer.com/'
 
 
+
 // https://coinlayer.com/documentation
 
-app.get(``, async (req, res) => {
+app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
-    const coinFrom = 'BTC'
-    const coinTo = 'DOGE'
-    const fromQuantity = 100
+    /* const coinFrom = ''
+    const coinTo = 'DOGE' */
+    //const fromQuantity = 100
     //const whatDay = ''
     // const before = '20-03-31'
-      try {
+    try {
+        const { coinFrom, coinTo, fromQuantity } = req.params
         const response = await axios.get(`${baseURL}convert`, {
+            params: {
+                access_key: process.env.ACCESS_KEY,
+                from: coinFrom,
+                to: coinTo,
+                amount: fromQuantity,
+            }
+        });
+        const json = response.data;
+
+        if (json.rates && json.rates[coinTo]) {
+            console.log(`Exchange Rate (${coinFrom} to  ${coinTo}):`, json.rates[coinTo]);
+        } else {
+            console.log("Rates data not available:", json);
+        }
+    } catch (err) {
+        console.error("Error:", err.message)
+    }
+})
+
+//live
+app.get(``, async (req, res) => {
+    /*      timestamp -exact utc timestamp
+            default target for specified currency
+            exchange rate
+            high/low ER- highest/lowest midpoint exchange rate on that day 
+            volume - volume of cryptocurrency exchanged on requested date
+            market cap - total value of crypto currency
+        
+            */
+    try {
+        const response = await axios.get(`${baseURL}list`, {
             params: {
                 access_key: process.env.ACCESS_KEY,
                 from: coinFrom,
@@ -38,25 +71,31 @@ app.get(``, async (req, res) => {
         }
     } catch (err) {
         console.error("Error:", err.message)
-}})
+    }
+})
 
-    /* Definitions
-     rate: This is the average exchange rate of XTZ on the specified date. In this case, it's 2.68217.
 
-    high: The highest exchange rate recorded for XTZ on that date, which is 2.9392.
-    
-    low: The lowest exchange rate recorded for XTZ on that date, which is 2.58659.
-    
-    vol: The trading volume of XTZ on that date, which is 535313.10018. This represents the total amount of XTZ traded.
-    
-    cap: The market capitalization of XTZ on that date. In this case, it's listed as 0, which might be an error or indicate that this data was not available.
-    
-    sup: The total supply of XTZ on that date. Again, it's listed as 0, which could be due to missing data.
-    ++++++++++++cryptocurrency data, change and change_pct are often calculated relative to the previous day's closing price.+++++++
-    change: The absolute change in XTZ's exchange rate from the previous day or period. Here, it's -0.22506000000000004.
-    
-    change_pct: The percentage change in XTZ's exchange rate from the previous day or period. In this case, it's -7.74138957014065%. */
-    //const endpoint = prompt("Can you provide the date in YYYY-MM-DD format?")cd ..
+
+
+
+
+/* Definitions
+ rate: This is the average exchange rate of XTZ on the specified date. In this case, it's 2.68217.
+
+high: The highest exchange rate recorded for XTZ on that date, which is 2.9392.
+ 
+low: The lowest exchange rate recorded for XTZ on that date, which is 2.58659.
+ 
+vol: The trading volume of XTZ on that date, which is 535313.10018. This represents the total amount of XTZ traded.
+ 
+cap: The market capitalization of XTZ on that date. In this case, it's listed as 0, which might be an error or indicate that this data was not available.
+ 
+sup: The total supply of XTZ on that date. Again, it's listed as 0, which could be due to missing data.
+++++++++++++cryptocurrency data, change and change_pct are often calculated relative to the previous day's closing price.+++++++
+change: The absolute change in XTZ's exchange rate from the previous day or period. Here, it's -0.22506000000000004.
+ 
+change_pct: The percentage change in XTZ's exchange rate from the previous day or period. In this case, it's -7.74138957014065%. */
+//const endpoint = prompt("Can you provide the date in YYYY-MM-DD format?")cd ..
 /* 
 
    
@@ -119,17 +158,10 @@ async function fetchList(coinSymbol = null) { //default value null
 }
  */
 //async function fetchLiveData() { 
-    //extended results includes
-    /*    timestamp -exact utc timestamp
-        default target for specified currency
-        exchange rate
-        high/low ER- highest/lowest midpoint exchange rate on that day 
-        volume - volume of cryptocurrency exchanged on requested date
-        market cap - total value of crypto currency
-    
-        */
-    //const endpoint = 'live' //added '?'
-    //const symbol = input("What Cryptocurrency would you like (for now write 'btc'")
+//extended results includes
+
+//const endpoint = 'live' //added '?'
+//const symbol = input("What Cryptocurrency would you like (for now write 'btc'")
 /*     try {
         const response = await fetch(`${baseURL}${endpoint}?access_key=${process.env.ACCESS_KEY}& expand = 1`)
         if (!response.ok) {
@@ -146,7 +178,7 @@ async function fetchList(coinSymbol = null) { //default value null
 
 app.listen(3001, () => {
     console.log('Server listening on port 3001');
-  });
+});
 
 //fetchLiveDa()
 //fetchHistory(coinSymbol = '')
