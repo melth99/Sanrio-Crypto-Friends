@@ -44,7 +44,7 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 })
 
 //live
-app.get(``, async (req, res) => {
+app.get(`/list`, async (req, res) => {
     /*      timestamp -exact utc timestamp
             default target for specified currency
             exchange rate
@@ -53,21 +53,26 @@ app.get(``, async (req, res) => {
             market cap - total value of crypto currency
         
             */
+
+        //console.log(json) //prints all currency data as wll as each cryptocurrency
+        //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
+        //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
+        //console.log(json.crypto[coinSymbol]) // different for fetch live.
+        //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols
     try {
         const response = await axios.get(`${baseURL}list`, {
             params: {
                 access_key: process.env.ACCESS_KEY,
-                from: coinFrom,
-                to: coinTo,
-                amount: fromQuantity,
+                extend:1
             }
         });
         const json = response.data;
+        res.json(json)
 
-        if (json.rates && json.rates[coinTo]) {
-            console.log(`Exchange Rate (${coinFrom} → ${coinTo}):`, json.rates[coinTo]);
+        if (json) {
+            console.log(`${Object.keys(json.crypto)} `)
         } else {
-            console.log("Rates data not available:", json);
+            console.log("Failed request :(", json);
         }
     } catch (err) {
         console.error("Error:", err.message)
