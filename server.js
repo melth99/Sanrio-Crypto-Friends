@@ -21,32 +21,38 @@ mongoose.connection.on("connected", () => {
 });
 //convert
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
-
-
-  //const fromQuantity = 100
-  //const whatDay = ''
-  // const before = '20-03-31'
   try {
-      const { coinFrom, coinTo, fromQuantity } = req.params
-      const response = await axios.get(`${baseURL}convert`, {
-          params: {
-              access_key: process.env.ACCESS_KEY,
-              from: coinFrom,
-              to: coinTo,
-              amount: fromQuantity,
-          }
-      });
-      const json = response.data;
+    const { coinFrom, coinTo, fromQuantity } = req.params;
+    console.log("Request Parameters:", req.params);
 
-      if (json.rates && json.rates[coinTo]) {
-          console.log(`Exchange Rate (${coinFrom} to  ${coinTo}):`, json.rates[coinTo]);
-      } else {
-          console.log("Rates data not available:", json);
+    const response = await axios.get(`${baseURL}convert`, {
+      params: {
+        access_key: process.env.ACCESS_KEY,
+        from: coinFrom,
+        to: coinTo,
+        amount: fromQuantity,
       }
+    });
+
+    const json = response.data;
+
+    if (json.rates && json.rates[coinTo]) {
+      console.log(`Exchange Rate (${coinFrom} to ${coinTo}):`, json.rates[coinTo]);
+      res.json({
+        exchangeRate: json.rate[coinTo],
+        from: coinFrom,
+        to: coinTo,
+        amount: fromQuantity,
+      });
+    } else {
+      console.log("Rates data not available:", json);
+      res.status(404).json({ message: "Rates data not available" });
+    }
   } catch (err) {
-      console.error("Error:", err.message)
+    console.error("Error:", err.message);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
 
 //live
 app.get(`/list`, async (req, res) => {
@@ -141,10 +147,12 @@ app.get('/historical/:date/:target?/:symbols?', async (req, res) => {
 
 const authCtrl = require('./controllers/auth')
 
+
 const coinCtrl = require('./controllers/coin')
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
+app.use(cors({origin: 'http://localhost:5173'}))// ^^ allows react app to send requests to express servfer
 
 
 

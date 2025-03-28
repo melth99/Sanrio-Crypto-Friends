@@ -31,16 +31,27 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
             }
         });
         const json = response.data;
+        console.log('API Response:', json);
 
-        if (json.rates && json.rates[coinTo]) {
-            console.log(`Exchange Rate (${coinFrom} to  ${coinTo}):`, json.rates[coinTo]);
+        if (json.success) {
+            const result = {
+                from: coinFrom,
+                to: coinTo,
+                amount: fromQuantity,
+                result: json.result,
+                rate: json.info.rate
+            };
+            console.log('Conversion result:', result);
+            res.json(result);
         } else {
-            console.log("Rates data not available:", json);
+            console.log("API request failed:", json.error);
+            res.status(400).json({ error: json.error.info });
         }
     } catch (err) {
-        console.error("Error:", err.message)
+        console.error("Error:", err.message);
+        res.status(500).json({ error: 'An internal server error occurred' });
     }
-})
+});
 
 //live
 app.get(`/list`, async (req, res) => {
