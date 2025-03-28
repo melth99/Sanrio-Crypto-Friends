@@ -3,7 +3,7 @@ const dotenv = require("dotenv")
 const axios = require('axios')
 const express = require('express')
 const app = express();
-app.use(express.json());
+app.use(express.json()); //middleware nessesary to parse incoming json data. Parsed json data is now available in req.body
 
 //onst { captureRejectionSymbol } = require("events")
 dotenv.config({ path: '.env' })
@@ -13,7 +13,7 @@ const baseURL = 'http://api.coinlayer.com/'
 
 
 // https://coinlayer.com/documentation
-
+//convert
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
 
@@ -31,16 +31,27 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
             }
         });
         const json = response.data;
+        console.log('API Response:', json);
 
-        if (json.rates && json.rates[coinTo]) {
-            console.log(`Exchange Rate (${coinFrom} to  ${coinTo}):`, json.rates[coinTo]);
+        if (json.success) {
+            const result = {
+                from: coinFrom,
+                to: coinTo,
+                amount: fromQuantity,
+                result: json.result,
+                rate: json.info.rate
+            };
+            console.log('Conversion result:', result);
+            res.json(result);
         } else {
-            console.log("Rates data not available:", json);
+            console.log("API request failed:", json.error);
+            res.status(400).json({ error: json.error.info });
         }
     } catch (err) {
-        console.error("Error:", err.message)
+        console.error("Error:", err.message);
+        res.status(500).json({ error: 'An internal server error occurred' });
     }
-})
+});
 
 //live
 app.get(`/list`, async (req, res) => {
@@ -77,11 +88,17 @@ app.get(`/list`, async (req, res) => {
     }
 })
 
-app.get('/live', async (req, res) => {
+app.get(`/live/:symbols?/:target?`, async (req, res) => {
+    const target = req.params.target || 'USD'
+    const symbols = req.params.symbols || ''
+    //if routing with a specific target(fiat) but no specific coin - 
+    // use this template '/live/?/USD'
     try {
         const response = await axios.get(`${baseURL}live`, {
             params: {
                 access_key: process.env.ACCESS_KEY,
+                symbols: symbols,
+                target: target,
                 expand: 1
             }
         });
@@ -100,33 +117,43 @@ app.get('/live', async (req, res) => {
 })
 
 app.get('/historical/:date/:target?/:symbols?', async (req, res) => {
-    const date = req.params.date
-    const target = req.params.target || 'USD'
-    const symbols = req.params.symbols || ''
+    const date = req.params.date;
+    const target = req.params.target || 'USD';
+    const symbols = req.params.symbols || '';
+  
     try {
-        const response = await axios.get(`${baseURL}${date}`, { // makes sure date param is first
-            params: {
-                //date: date,// YYYY-MM-DD format & required
-                access_key: process.env.ACCESS_KEY,
-                target: target, //default dollars fiat USES FIAT CODE
-                symbols: symbols, //optional, but use this format if you choose" BTC,DOGE,ETH"
-                expand: 1,
+      const response = await axios.get(`${baseURL}historical/${date}`, {
+        params: {
+          access_key: process.env.ACCESS_KEY,
+          target: target,
+          symbols: symbols,
+          expand: 1,
+        }
+      });
+      console.log(response)
 
-
-
-                //can do symbols if needed
-            }
-        })
-        const json = response.data
-        res.json(json)
-        console.log(json)
+      const json = response.data;
+      console.log(json)
+  
+      if (json.success) {
+        const result = {
+          
+        };
+  
+        console.log(json);
+        console.log(result);
+  
+        res.json(result);
+      } else {
+        console.log("Failed to fetch historical data:", json);
+        res.status(404).json({ message: "Historical data not available" });
+      }
+    } catch (err) {
+      console.error('Error fetching historical data:', err.message);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-    catch (err) {
-        console.error(err.message)
-    }
-})
-
-
+  });
+  
 
 
 
@@ -140,7 +167,7 @@ low: The lowest exchange rate recorded for XTZ on that date, which is 2.58659.
  
 vol: The trading volume of XTZ on that date, which is 535313.10018. This represents the total amount of XTZ traded.
  
-cap: The market capitalization of XTZ on that date. In this case, it's listed as 0, which might be an error or indicate that this data was not available.
+cap:. In this case, it's listed as 0, which might be an error or indicate that this data was not available.
  
 sup: The total supply of XTZ on that date. Again, it's listed as 0, which could be due to missing data.
 ++++++++++++cryptocurrency data, change and change_pct are often calculated relative to the previous day's closing price.+++++++
