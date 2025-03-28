@@ -37,12 +37,13 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
     const json = response.data;
 
     if (json.rates && json.rates[coinTo]) {
-      console.log(`Exchange Rate (${coinFrom} to ${coinTo}):`, json.rates[coinTo]);
+      console.log(`Query ${fromQuantity} ${coinFrom} to ${coinTo})`);
       res.json({
-        exchangeRate: json.rate[coinTo],
+        rate: json.info[rate],
+        result: json[result],
         from: coinFrom,
         to: coinTo,
-        amount: fromQuantity,
+        result: fromQuantity,
       });
     } else {
       console.log("Rates data not available:", json);
