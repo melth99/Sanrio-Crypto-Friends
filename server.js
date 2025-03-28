@@ -1,14 +1,13 @@
-
 const express = require("express")
 const app = express()
 const dotenv = require("dotenv")
 dotenv.config()
 const mongoose = require("mongoose")
-
+const cors = require('cors');
 const methodOverride = require("method-override")
 const morgan = require("morgan")
 const session = require('express-session')
-const cors = require('cors')
+
 const axios = require('axios')
 const baseURL = 'http://api.coinlayer.com/'
 const port = process.env.PORT ? process.env.PORT : "3000";
@@ -19,6 +18,32 @@ mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on("connected", () => {
 
 });
+
+const corsOptions = {
+  origin: 'http://localhost:5173', // Allow requests from this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+// Apply CORS middleware first
+app.use(cors(corsOptions));
+
+// Other middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(morgan('dev'));
+
+
+// Session middleware
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 //convert
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
   try {
@@ -36,14 +61,14 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
     const json = response.data;
 
-    if (json.rates && json.rates[coinTo]) {
+    if (json.success && json.result) {
       console.log(`Query ${fromQuantity} ${coinFrom} to ${coinTo})`);
       res.json({
-        rate: json.info[rate],
-        result: json[result],
+        rate: json.info.rate,
+        result: json.result,
         from: coinFrom,
         to: coinTo,
-        result: fromQuantity,
+        amount: fromQuantity,
       });
     } else {
       console.log("Rates data not available:", json);
@@ -146,32 +171,11 @@ app.get('/historical/:date/:target?/:symbols?', async (req, res) => {
   }
 })
 
-const authCtrl = require('./controllers/auth')
+ const authCtrl = require('./controllers/auth')
 
 
 const coinCtrl = require('./controllers/coin')
 
-app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride('_method'));
-app.use(cors({origin: 'http://localhost:5173'}))// ^^ allows react app to send requests to express servfer
-
-
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
-app.use(express.urlencoded({ extended: false }));
-
-app.use(methodOverride("_method"));
-
-app.use(morgan('dev'));
 
 
 app.use(session({
@@ -186,13 +190,12 @@ app.use('/auth', authCtrl)
 app.use('/coin', coinCtrl)
 
 
-
 app.get('/', function (req, res) {
 
   res.render('welcome.ejs', { user: req.session.user });
-});
+}); 
 
 
 app.listen(port, () => {
-
+ console.log(`listening on ${port}`)
 })
