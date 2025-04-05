@@ -64,7 +64,7 @@ app.get(`/list`, async (req, res) => {
             market cap - total value of crypto currency
         
              //console.log(json) //prints all currency data as wll as each cryptocurrency
-             //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
+            console.log(json.fiat)//prints currency fiat refers to value in traditional currency
              //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
              //console.log(json.crypto[coinSymbol]) // different for fetch live.
              //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols */
@@ -80,6 +80,8 @@ app.get(`/list`, async (req, res) => {
 
         if (json) {
             console.log(`${Object.keys(json.crypto)} `)
+            //console.log(`${Object.keys.json.crypto}`)
+
         } else {
             console.log("Failed request :(", json);
         }

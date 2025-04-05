@@ -46,6 +46,7 @@ app.use(
 
 //convert
 app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
+
   try {
     const { coinFrom, coinTo, fromQuantity } = req.params;
     console.log("Request Parameters:", req.params);
@@ -63,13 +64,14 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
     if (json.success && json.result) {
       console.log(`Query ${fromQuantity} ${coinFrom} to ${coinTo})`);
-      res.json({
+      res.json({ //responding to front ends request
         rate: json.info.rate,
         result: json.result,
         from: coinFrom,
         to: coinTo,
         amount: fromQuantity,
       });
+      console.log(json.info)
     } else {
       console.log("Rates data not available:", json);
       res.status(404).json({ message: "Rates data not available" });
@@ -86,7 +88,7 @@ app.get('/historical/:date/:target/:symbols', async (req, res) => {
   const date = req.params.date;
   const target = req.params.target || 'USD';
   const symbols = req.params.symbols || '';
-
+  console.log(date, target, symbols)
   try {
     const response = await axios.get(`${baseURL}${date}`, {
       params: {
@@ -132,21 +134,21 @@ app.get('/historical/:date/:target/:symbols', async (req, res) => {
 
 
 //list
-/* app.get(`/list`, async (req, res) => { */
+app.get(`/list`, async (req, res) => {
 
-  /* timestamp -exact utc timestamp
-  default target for specified currency
+
+/*   default target for specified currency
   exchange rate
-  high/low ER- highest/lowest midpoint exchange rate on that day 
+  high / low ER - highest / lowest midpoint exchange rate on that day
   volume - volume of cryptocurrency exchanged on requested date
-  market cap - total value of crypto currency
- 
-   //console.log(json) //prints all currency data as wll as each cryptocurrency
-   //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
-   //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
-   //console.log(json.crypto[coinSymbol]) // different for fetch live.
-   //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols */
-/*   try {
+  market cap - total value of crypto currency */
+
+  //console.log(json) //prints all currency data as wll as each cryptocurrency
+  //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
+  //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
+  //console.log(json.crypto[coinSymbol]) // different for fetch live.
+  //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols */
+  try {
     const response = await axios.get(`${baseURL}list`, {
       params: {
         access_key: process.env.ACCESS_KEY,
@@ -165,6 +167,9 @@ app.get('/historical/:date/:target/:symbols', async (req, res) => {
     console.error("Error:", err.message)
   }
 })
+
+
+
 //live
 app.get(`/live/:symbols?/:target?`, async (req, res) => {
   const target = req.params.target || 'USD'
@@ -193,7 +198,7 @@ app.get(`/live/:symbols?/:target?`, async (req, res) => {
   } catch (err) {
     console.error("Error:", err.message)
   }
-}) */
+}) 
 /* const authCtrl = require('./controllers/auth')
 
 const coinCtrl = require('./controllers/coin')
