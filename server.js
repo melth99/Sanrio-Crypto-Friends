@@ -20,7 +20,7 @@ mongoose.connection.on("connected", () => {
 });
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Allow requests from this origin
+  origin: 'https://mycryptohaven.netlify.app', // Allow requests from this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
