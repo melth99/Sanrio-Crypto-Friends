@@ -18,14 +18,12 @@ mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on("connected", () => {
 
 });
-
 const corsOptions = {
-  origin: 'https://mycryptohaven.netlify.app', // Allow requests from this origin
+  origin: ['https://mycryptohaven.netlify.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // Add this if you're using cookies/authentication
 };
-
-// Apply CORS middleware first
 app.use(cors(corsOptions));
 
 // Other middleware
