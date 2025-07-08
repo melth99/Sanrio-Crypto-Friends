@@ -51,7 +51,7 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
 
     const response = await axios.get(`${baseURL}convert`, {
       params: {
-        access_key: process.env.ACCESS_KEY,
+        access_key: process.env.access_key,
         from: coinFrom,
         to: coinTo,
         amount: fromQuantity,
@@ -90,7 +90,7 @@ app.get('/historical/:date/:target/:symbols', async (req, res) => {
   try {
     const response = await axios.get(`${baseURL}${date}`, {
       params: {
-        access_key: process.env.ACCESS_KEY,
+        access_key: process.env.access_key,
         target: target,
         symbols: symbols,
         expand: 1,
@@ -149,7 +149,7 @@ app.get(`/list`, async (req, res) => {
   try {
     const response = await axios.get(`${baseURL}list`, {
       params: {
-        access_key: process.env.ACCESS_KEY,
+        access_key: process.env.access_key,
         expand: 1
       }
     });
@@ -178,7 +178,7 @@ app.get(`/live/:symbols?/:target?`, async (req, res) => {
   try {
     const response = await axios.get(`${baseURL}live`, {
       params: {
-        access_key: process.env.ACCESS_KEY,
+        access_key: process.env.access_key,
         symbols: symbols,
         target: target,
         // expand: 1
