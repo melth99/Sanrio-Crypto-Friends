@@ -22,6 +22,21 @@ app.get(`/convert/:coinFrom/:coinTo/:fromQuantity`, async (req, res) => {
     // const before = '20-03-31'
     try {
         const { coinFrom, coinTo, fromQuantity } = req.params
+        try {
+            const { coinFrom, coinTo, fromQuantity } = req.params;
+            
+            // Validate parameters
+            if (!coinFrom || !coinTo || !fromQuantity || coinFrom.trim() === '' || coinTo.trim() === '') {
+                return res.status(400).json({ 
+                    error: 'Missing required parameters: coinFrom, coinTo, and fromQuantity are required' 
+                });
+            }
+    
+            if (isNaN(fromQuantity) || Number(fromQuantity) <= 0) {
+                return res.status(400).json({ 
+                    error: 'fromQuantity must be a positive number' 
+                });
+            }
         const response = await axios.get(`${baseURL}convert`, {
             params: {
                 access_key: process.env.ACCESS_KEY,
@@ -78,10 +93,15 @@ app.get(`/list`, async (req, res) => {
         const json = response.data;
         res.json(json)
 
-        if (json) {
+        if (json && json.success) {
             console.log(`${Object.keys(json.crypto)} `)
             //console.log(`${Object.keys.json.crypto}`)
-
+            if (json.crypto && typeof json.crypto === 'object') {
+                console.log(`Available cryptocurrencies: ${Object.keys(json.crypto).join(', ')}`);
+            } else {
+                console.log('No crypto data available in response');
+            }
+            res.json(json);
         } else {
             console.log("Failed request :(", json);
         }
