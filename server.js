@@ -154,7 +154,7 @@ app.get(`/list`, async (req, res) => {
       }
     });
     const json = response.data;
-    res.json(json)
+   // res.json(json)
 
     if (json) {
       console.log(`${Object.keys(json.crypto)} `)
@@ -219,7 +219,17 @@ app.get('/', function (req, res) {
 
   res.render('welcome.ejs', { user: req.session.user });
 }); */
-
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Crypto Haven API is running',
+    endpoints: {
+      list: '/list',
+      live: '/live/:symbols?/:target?',
+      convert: '/convert/:coinFrom/:coinTo/:fromQuantity',
+      historical: '/historical/:date/:target/:symbols'
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`listening on ${port}`)
