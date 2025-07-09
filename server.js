@@ -133,40 +133,52 @@ app.get('/historical/:date/:target/:symbols', async (req, res) => {
 
 //list
 app.get(`/list`, async (req, res) => {
-
-
-/*   default target for specified currency
-  exchange rate
-  high / low ER - highest / lowest midpoint exchange rate on that day
-  volume - volume of cryptocurrency exchanged on requested date
-  market cap - total value of crypto currency */
-
-  //console.log(json) //prints all currency data as wll as each cryptocurrency
-  //console.log(json.fiat)//prints currency fiat refers to value in traditional currency
-  //console.log(json.fiat.NAD) // returns full name of currency using short hand as a key in json
-  //console.log(json.crypto[coinSymbol]) // different for fetch live.
-  //console.log(`${Object.keys(json.crypto)},`) //all crypto symbols */
+  console.log('=== /list endpoint called ===');
+  console.log('API key exists:', !!process.env.access_key);
+  console.log('Base URL:', baseURL);
+  
   try {
-    const response = await axios.get(`${baseURL}list`, {
-      params: {
-        access_key: process.env.access_key,
-        expand: 1
-      }
+    const requestUrl = `${baseURL}list`;
+    const params = {
+      access_key: process.env.access_key,
+      expand: 1
+    };
+    
+    console.log('Making request to:', requestUrl);
+    console.log('API key length:', process.env.access_key ? process.env.access_key.length : 'MISSING');
+    
+    // Add timeout to prevent Heroku H12 errors
+    const response = await axios.get(requestUrl, { 
+      params,
+      timeout: 25000 // 25 second timeout (less than Heroku's 30s)
     });
+    
+    console.log('Response status:', response.status);
+    console.log('Response data success:', response.data.success);
+    
     const json = response.data;
-   // res.json(json)
-
-    if (json) {
-      console.log(`${Object.keys(json.crypto)} `)
+    
+    if (json && json.success && json.crypto) {
+      console.log('Success! Number of crypto currencies:', Object.keys(json.crypto).length);
+      res.json(json);
     } else {
-      console.log("Failed request :(", json);
+      console.log('API returned error:', json);
+      res.status(400).json({ message: "API error", error: json });
     }
   } catch (err) {
-    console.error("Error:", err.message)
+    console.log('Axios error:', err.message);
+    if (err.code === 'ECONNABORTED') {
+      console.log('Request timed out');
+      res.status(504).json({ message: "Request timed out" });
+    } else if (err.response) {
+      console.log('Error response status:', err.response.status);
+      console.log('Error response data:', err.response.data);
+      res.status(err.response.status).json({ message: "API error", error: err.response.data });
+    } else {
+      res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
   }
-})
-
-
+});
 
 //live
 app.get(`/live/:symbols?/:target?`, async (req, res) => {
